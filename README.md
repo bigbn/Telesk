@@ -3,7 +3,7 @@ Telesk
 
 QT and PJSIP based minimalistic SIP Client
 
-![Screenshot](https://github.com/bigbn/Telesk/blob/master/screenshot.png)
+![Screenshot](https://github.com/bigbn/Telesk/raw/master/screenshot.png)
 
 Usage:
 -------------------
