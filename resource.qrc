@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/button_ok.png</file>
+        <file>images/button_cancel.png</file>
+        <file alias="stop.png">images/stop.png</file>
+        <file alias="shutdown.png">images/shutdown.png</file>
+        <file alias="settings.png">images/settings.png</file>
+        <file alias="inactive.png">images/telesk_default_24.png</file>
+        <file alias="error.png">images/telesk_error_24.png</file>
+        <file alias="connected.png">images/telesk_active_24.png</file>
+        <file alias="call.png">images/call_.png</file>
+        <file alias="hangup.png">images/hangup.png</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,140 @@
+# Russian translations for PACKAGE package
+# Английские переводы для пакета PACKAGE.
+# Copyright (C) 2012 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# bigbn <bigbn@mail.ru>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-07-24 14:08+0400\n"
+"PO-Revision-Date: 2012-07-24 14:08+0400\n"
+"Last-Translator: bigbn <bigbn@mail.ru>\n"
+"Language-Team: Russian\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: forms/ui_settings.py:124 forms/dialer.py:99
+msgid "Settings"
+msgstr "Параметры"
+
+#: forms/ui_settings.py:125
+msgid "SIP Server"
+msgstr "SIP-сервер"
+
+#: forms/ui_settings.py:126
+msgid "Port"
+msgstr "Порт"
+
+#: forms/ui_settings.py:128
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: forms/ui_settings.py:129
+msgid "Password"
+msgstr "Пароль"
+
+#: forms/ui_settings.py:130
+msgid "SIP"
+msgstr "SIP"
+
+#: forms/ui_settings.py:131
+msgid "Auto answer"
+msgstr "Автоответ"
+
+#: forms/ui_settings.py:132
+msgid "Always on top"
+msgstr "Поверх всех окон"
+
+#: forms/ui_settings.py:133
+msgid "Use the system theme (restart needed)"
+msgstr "Использовать системную тему"
+
+#: forms/ui_settings.py:134
+msgid "Interface"
+msgstr "Интерфейс"
+
+#: forms/ui_settings.py:135
+msgid "Capture device"
+msgstr "Устройство захвата"
+
+#: forms/ui_settings.py:136
+msgid "Output device"
+msgstr "Устройство воспроизведения"
+
+#: forms/ui_settings.py:137
+msgid "Sound"
+msgstr "Звук"
+
+#: forms/ui_settings.py:138
+msgid "Cancel"
+msgstr "Отмена"
+
+#: forms/ui_settings.py:139
+msgid "OK"
+msgstr "ОК"
+
+#: forms/dialer.py:87
+msgid "Audio-device error"
+msgstr "Ошибка инициализации аудио устройств"
+
+#: forms/dialer.py:97
+msgid "Activate"
+msgstr "Активировать"
+
+#: forms/dialer.py:102
+msgid "Quit"
+msgstr "Выход"
+
+#: forms/dialer.py:146
+msgid "Exiting"
+msgstr "Завершение"
+
+#: forms/dialer.py:170
+msgid "Calling..."
+msgstr "Звоним..."
+
+#: forms/dialer.py:173
+msgid "Calling"
+msgstr "Звоним"
+
+#: forms/dialer.py:178
+msgid "Call in process"
+msgstr "Разговор"
+
+#: forms/dialer.py:184
+msgid "Telesk"
+msgstr "Telesk"
+
+#: forms/dialer.py:187
+msgid "Not available"
+msgstr "Абонент недоступен"
+
+#: forms/dialer.py:189
+msgid "Not found"
+msgstr "Абонент не найден"
+
+#: forms/dialer.py:191
+msgid "Busy here"
+msgstr "Занято"
+
+#: forms/dialer.py:193
+msgid "Decline"
+msgstr "Звонок завершен"
+
+#: forms/dialer.py:206
+msgid "SIP registration failed"
+msgstr "Регистрация не удалась"
+
+#: forms/ui_dialDialog.py:118
+msgid "Answer"
+msgstr "Ответить"
+
+#: forms/ui_dialDialog.py:119
+msgid "Reject"
+msgstr "Отклонить"
