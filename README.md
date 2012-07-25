@@ -5,11 +5,16 @@ QT and PJSIP based minimalistic SIP Client
 
 ![Screenshot](https://github.com/bigbn/Telesk/raw/master/screenshot.png)
 
+
+Downloads:
+-------------------
+https://github.com/downloads/bigbn/Telesk/telesk_0.1.0-precise_i386.deb - Ubuntu 12.04(i686) deb package
+
 Usage:
 -------------------
- ./main      Launch telesk
+ ./main     - Launch telesk
  
- ./main -d   Launch telesk with debug output
+ ./main -d  - Launch telesk with debug output
 
 Requirements:
 -------------------
