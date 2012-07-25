@@ -18,7 +18,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
 import gettext
-import sys
+import os,sys
 import os, logging
 from PyQt4 import QtCore, QtGui
 from debug import debug
@@ -27,8 +27,7 @@ VERSION = "0.1.0"
 from forms.dialer import Dialer
 
 def main():
-    gettext.textdomain('telesk')
-    gettext.install('telesk', './locale', unicode=True)
+    gettext.install('telesk', os.path.dirname(os.path.abspath(__file__))+'/locale', unicode=True)
     app = QtGui.QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
     wnd = Dialer()
