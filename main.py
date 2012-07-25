@@ -27,6 +27,7 @@ VERSION = "0.1.0"
 from forms.dialer import Dialer
 
 def main():
+    gettext.textdomain('telesk')
     gettext.install('telesk', './locale', unicode=True)
     app = QtGui.QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
