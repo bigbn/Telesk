@@ -18,7 +18,7 @@ Usage:
 
 Requirements:
 -------------------
-You need PyQt4 installed to run Telesk.
+You need PyQt4 and python2 installed to run Telesk.
 
 Supported platforms:
 -------------------
@@ -26,7 +26,7 @@ Currently supported only i686 and x86_64 systems (to run on another platform, u 
 
 Language support:
 -------------------
-Currently only English and Russian languages available.
+Currently only English, Russian and Ukrainian languages available.
 
 Contribute:
 -------------------
