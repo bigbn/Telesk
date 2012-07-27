@@ -25,6 +25,9 @@ if platform.machine() == "i686":
     import pjsua.i686.pjsua as pj
 elif platform.machine() == "x86_64":
     import pjsua.x86_64.pjsua as pj
+elif platform.machine() == "x86":
+    import pjsua.x86_win.pjsua as pj	
+	
 import sys
 import threading
 from debug import debug

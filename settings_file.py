@@ -23,11 +23,15 @@ from debug import debug
 CKEY = "Jksaa68snHa[pewmxTgsoiq-234sjs;sa032ngldf"
 SETTINGS_FILE = "settings.conf"
 if not sys.platform.startswith("win"):
-    bp = os.path.expanduser("~") + "/.skat"
-    SETTINGS_FILE = os.path.join(bp, 'telesk.conf')
+    path = os.path.expanduser("~") + "/.skat"
+    if not os.path.exists(path):
+        os.makedirs(path)
+    SETTINGS_FILE = os.path.join(path, 'telesk.conf')
 else:
-    bp = os.path.expanduser("~") + "\\skat"
-    SETTINGS_FILE = bp + "\\telesk.conf"
+    path = os.path.expanduser("~") + "\\skat"
+    if not os.path.exists(path):
+        os.makedirs(path)    
+    SETTINGS_FILE = path + "\\telesk.conf"
 
 def mycrypt(aString, key):
     kIdx = 0

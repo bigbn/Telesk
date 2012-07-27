@@ -8,7 +8,7 @@ QT and PJSIP based minimalistic SIP Client
 
 Downloads:
 -------------------
-https://github.com/downloads/bigbn/Telesk/telesk_0.1.0-precise_i386.deb - Ubuntu 12.04(i686) deb package
+https://github.com/downloads/bigbn/Telesk/telesk_0.1.1-precise_i386.deb - Ubuntu 12.04(i686) deb package
 
 Usage:
 -------------------
@@ -22,7 +22,7 @@ You need PyQt4 and python2 installed to run Telesk.
 
 Supported platforms:
 -------------------
-Currently supported only i686 and x86_64 systems (to run on another platform, u need to compile PJSIP on that platform).
+Currently supported only i686 and x86_64 systems. Also available x86 build wor Windows. (to run on another platform, u need to compile PJSIP on that platform).
 
 Language support:
 -------------------

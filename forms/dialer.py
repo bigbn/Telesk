@@ -88,14 +88,21 @@ class Dialer(formClass, BaseClass):
         except:
             pass
         for sd in self.controller.core.lib.enum_snd_dev():
-            self.settings.inputComboBox.addItem(sd.name)
-            self.settings.outputComboBox.addItem(sd.name)
+            self.settings.inputComboBox.addItem(self.trans(sd.name))
+            self.settings.outputComboBox.addItem(self.trans(sd.name))
         self.settings.load()
         try:
             self.controller.core.lib.set_snd_dev(self.settings.inputComboBox.currentIndex(), self.settings.outputComboBox.currentIndex())
         except:
             debug(_("Audio-device error"))
-    
+
+    def trans(self,string):
+	    if not sys.platform.startswith("win"):
+		    return string
+	    else:
+		    return unicode(string.decode("CP1251"))
+
+	
     def createTrayIcon(self):
         # Создаем иконку в трее
         icon = QtGui.QIcon(":/inactive.png")
@@ -147,7 +154,6 @@ class Dialer(formClass, BaseClass):
 
     def onTrayClick(self, reason):
         #TODO: Fix this for KDE
-        debug("Position %s:%s" % (right,bottom))
         right = QtGui.QDesktopWidget().screenGeometry().width()-self.width()/2
         bottom = QtGui.QDesktopWidget().screenGeometry().height()-self.height()/2
         self.move(right, bottom)
