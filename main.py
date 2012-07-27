@@ -17,7 +17,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
-import gettext
+import gettext,gettext_windows
 import os,sys
 import os, logging
 from PyQt4 import QtCore, QtGui
@@ -27,7 +27,12 @@ VERSION = "0.1.0"
 from forms.dialer import Dialer
 
 def main():
-    gettext.install('telesk', os.path.dirname(os.path.dirname(sys.argv[0]))+'/locale', unicode=True)
+    if sys.platform.startswith("win"):
+        gettext_windows.setup_env()
+        
+    lang_path = os.path.dirname(os.path.abspath(sys.argv[0]))+'/locale'
+    debug("Lang path: %s" % lang_path)
+    gettext.install('telesk', lang_path, unicode=True)
     app = QtGui.QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
     wnd = Dialer()
