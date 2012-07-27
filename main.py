@@ -27,7 +27,7 @@ VERSION = "0.1.0"
 from forms.dialer import Dialer
 
 def main():
-    gettext.install('telesk', os.path.dirname(os.path.abspath(__file__))+'/locale', unicode=True)
+    gettext.install('telesk', os.path.dirname(os.path.dirname(sys.argv[0]))+'/locale', unicode=True)
     app = QtGui.QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
     wnd = Dialer()
