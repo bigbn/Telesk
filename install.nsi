@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "Telesk"
-!define PRODUCT_VERSION "0.2"
+!define PRODUCT_VERSION "0.1.1"
 !define PRODUCT_PUBLISHER "SKAT LTD"
 !define PRODUCT_WEB_SITE "http://www.scat.su"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\telesk.exe"
@@ -82,6 +82,32 @@ Section "softphone" SEC01
   File "dist\winsound.pyd"
   File "dist\_socket.pyd"
   File "dist\_ssl.pyd"
+  File "dist\libgcc_s_dw2-1.dll"
+  File "dist\Microsoft.VC90.CRT.manifest"
+  File "dist\mingwm10.dll"
+  File "dist\mscoree.dll"
+  File "dist\msvcm90.dll"
+  File "dist\msvcp90.dll"
+  File "dist\msvcr90.dll"
+  File "dist\msvcrt.dll"
+  
+  SetOverwrite on
+  CreateDirectory "$INSTDIR\locale"
+  SetOutPath "$INSTDIR\locale"
+  File "locale\telesk.pot"
+  
+  CreateDirectory "$INSTDIR\locale\ru"
+  CreateDirectory "$INSTDIR\locale\ru\LC_MESSAGES"
+  SetOutPath "$INSTDIR\locale\ru\LC_MESSAGES"
+  File "locale\ru\LC_MESSAGES\telesk.mo"
+  File "locale\ru\LC_MESSAGES\telesk.po"
+  
+  CreateDirectory "$INSTDIR\locale\ua"
+  CreateDirectory "$INSTDIR\locale\ua\LC_MESSAGES"
+  SetOutPath "$INSTDIR\locale\ua\LC_MESSAGES"
+  File "locale\ua\LC_MESSAGES\telesk.mo"
+  File "locale\ua\LC_MESSAGES\telesk.po"
+  
 SectionEnd
 
 Section -AdditionalIcons
@@ -133,6 +159,15 @@ Section Uninstall
   Delete "$INSTDIR\PyQt4.QtCore.pyd"
   Delete "$INSTDIR\pjsua.x86_win._pjsua.pyd"
   Delete "$INSTDIR\bz2.pyd"
+  
+  Delete "$INSTDIR\libgcc_s_dw2-1.dll"
+  Delete "$INSTDIR\Microsoft.VC90.CRT.manifest"
+  Delete "$INSTDIR\mingwm10.dll"
+  Delete "$INSTDIR\mscoree.dll"
+  Delete "$INSTDIR\msvcm90.dll"
+  Delete "$INSTDIR\msvcp90.dll"
+  Delete "$INSTDIR\msvcr90.dll"
+  Delete "$INSTDIR\msvcrt.dll"
 
   Delete "$SMPROGRAMS\Telesk\Uninstall.lnk"
   Delete "$SMPROGRAMS\Telesk\Website.lnk"
