@@ -145,7 +145,7 @@ class Dialer(formClass, BaseClass):
 
     def showAbout(self):
         try:
-            f = open('version', 'r')
+            f = open(os.path.dirname(os.path.abspath(sys.argv[0]))+'/version', 'r')
             version = f.readline()
             f.close()
         except:

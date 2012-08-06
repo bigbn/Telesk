@@ -8,9 +8,9 @@ QT and PJSIP based minimalistic SIP Client
 
 Downloads:
 -------------------
-https://github.com/downloads/bigbn/Telesk/telesk_0.1.1-precise_i386.deb - Ubuntu 12.04(i686) deb package
+https://github.com/downloads/bigbn/Telesk/telesk_0.2.0-precise_i386.deb - Ubuntu 12.04(i686) deb package
 
-https://github.com/downloads/bigbn/Telesk/telesk_setup_0.1.1.exe - Windows(x86) installer
+https://github.com/downloads/bigbn/Telesk/telesk_setup_0.2.0.exe - Windows(x86) installer
 
 Usage:
 -------------------
