@@ -140,3 +140,15 @@ msgstr "Відповісти"
 msgid "Reject"
 msgstr "Відмовити"
 
+#: forms/dialer.py:119 forms/dialer.py:164
+msgid "About"
+msgstr "Про програму"
+
+#: forms/dialer.py:152
+msgid "Unknown version"
+msgstr "Невідома версія"
+
+#: forms/dialer.py:157
+msgid "Translations"
+msgstr "Переклади"
+

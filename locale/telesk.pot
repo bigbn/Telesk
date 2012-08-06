@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-24 14:08+0400\n"
+"POT-Creation-Date: 2012-08-06 11:28+0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,123 +17,150 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: forms/ui_settings.py:124 forms/dialer.py:99 forms/ui_settings.py:124
-#: forms/dialer.py:99
+#: forms/ui_settings.py:124 forms/dialer.py:99 forms/ui_settings.py:133
+#: forms/dialer.py:116
 msgid "Settings"
 msgstr ""
 
-#: forms/ui_settings.py:125 forms/ui_settings.py:125
+#: forms/ui_settings.py:125 forms/ui_settings.py:134
 msgid "SIP Server"
 msgstr ""
 
-#: forms/ui_settings.py:126 forms/ui_settings.py:126
+#: forms/ui_settings.py:126 forms/ui_settings.py:135
 msgid "Port"
 msgstr ""
 
-#: forms/ui_settings.py:128 forms/ui_settings.py:128
+#: forms/ui_settings.py:128 forms/ui_settings.py:137
 msgid "Username"
 msgstr ""
 
-#: forms/ui_settings.py:129 forms/ui_settings.py:129
+#: forms/ui_settings.py:129 forms/ui_settings.py:138
 msgid "Password"
 msgstr ""
 
-#: forms/ui_settings.py:130 forms/ui_settings.py:130
+#: forms/ui_settings.py:130 forms/ui_settings.py:139
 msgid "SIP"
 msgstr ""
 
-#: forms/ui_settings.py:131 forms/ui_settings.py:131
+#: forms/ui_settings.py:131 forms/ui_settings.py:140
 msgid "Auto answer"
 msgstr ""
 
-#: forms/ui_settings.py:132 forms/ui_settings.py:132
+#: forms/ui_settings.py:132 forms/ui_settings.py:141
 msgid "Always on top"
 msgstr ""
 
-#: forms/ui_settings.py:133 forms/ui_settings.py:133
+#: forms/ui_settings.py:133 forms/ui_settings.py:142
 msgid "Use the system theme (restart needed)"
 msgstr ""
 
-#: forms/ui_settings.py:134 forms/ui_settings.py:134
+#: forms/ui_settings.py:134 forms/ui_settings.py:143
 msgid "Interface"
 msgstr ""
 
-#: forms/ui_settings.py:135 forms/ui_settings.py:135
+#: forms/ui_settings.py:135 forms/ui_settings.py:144
 msgid "Capture device"
 msgstr ""
 
-#: forms/ui_settings.py:136 forms/ui_settings.py:136
+#: forms/ui_settings.py:136 forms/ui_settings.py:145
 msgid "Output device"
 msgstr ""
 
-#: forms/ui_settings.py:137 forms/ui_settings.py:137
+#: forms/ui_settings.py:137 forms/ui_settings.py:146
 msgid "Sound"
 msgstr ""
 
-#: forms/ui_settings.py:138 forms/ui_settings.py:138
+#: forms/ui_settings.py:138 forms/ui_settings.py:147
 msgid "Cancel"
 msgstr ""
 
-#: forms/ui_settings.py:139 forms/ui_settings.py:139
+#: forms/ui_settings.py:139 forms/ui_settings.py:148
 msgid "OK"
 msgstr ""
 
-#: forms/dialer.py:87 forms/dialer.py:87
+#: forms/dialer.py:87 forms/dialer.py:97
 msgid "Audio-device error"
 msgstr ""
 
-#: forms/dialer.py:97 forms/dialer.py:97
+#: forms/dialer.py:97 forms/dialer.py:114
 msgid "Activate"
 msgstr ""
 
-#: forms/dialer.py:102 forms/dialer.py:102
+#: forms/dialer.py:102 forms/dialer.py:123
 msgid "Quit"
 msgstr ""
 
-#: forms/dialer.py:146 forms/dialer.py:146
+#: forms/dialer.py:146 forms/dialer.py:198
 msgid "Exiting"
 msgstr ""
 
-#: forms/dialer.py:170 forms/dialer.py:170
+#: forms/dialer.py:170 forms/dialer.py:222
 msgid "Calling..."
 msgstr ""
 
-#: forms/dialer.py:173 forms/dialer.py:173
+#: forms/dialer.py:173
 msgid "Calling"
 msgstr ""
 
-#: forms/dialer.py:178 forms/dialer.py:178
+#: forms/dialer.py:178 forms/dialer.py:231
 msgid "Call in process"
 msgstr ""
 
-#: forms/dialer.py:184 forms/dialer.py:184
+#: forms/dialer.py:184 forms/dialer.py:236
 msgid "Telesk"
 msgstr ""
 
-#: forms/dialer.py:187 forms/dialer.py:187
+#: forms/dialer.py:187 forms/dialer.py:239
 msgid "Not available"
 msgstr ""
 
-#: forms/dialer.py:189 forms/dialer.py:189
+#: forms/dialer.py:189 forms/dialer.py:241
 msgid "Not found"
 msgstr ""
 
-#: forms/dialer.py:191 forms/dialer.py:191
+#: forms/dialer.py:191 forms/dialer.py:243
 msgid "Busy here"
 msgstr ""
 
-#: forms/dialer.py:193 forms/dialer.py:193
+#: forms/dialer.py:193 forms/dialer.py:245
 msgid "Decline"
 msgstr ""
 
-#: forms/dialer.py:206 forms/dialer.py:206
+#: forms/dialer.py:206 forms/dialer.py:258
 msgid "SIP registration failed"
 msgstr ""
 
-#: forms/ui_dialDialog.py:118 forms/ui_dialDialog.py:118
+#: forms/ui_dialDialog.py:118 forms/ui_dialDialog.py:128
 msgid "Answer"
 msgstr ""
 
-#: forms/ui_dialDialog.py:119 forms/ui_dialDialog.py:119
+#: forms/ui_dialDialog.py:119 forms/ui_dialDialog.py:129
 msgid "Reject"
+msgstr ""
+
+#: forms/dialer.py:119 forms/dialer.py:164
+msgid "About"
+msgstr ""
+
+#: forms/dialer.py:152
+msgid "Unknown version"
+msgstr ""
+
+#: forms/dialer.py:154
+msgid "QT and PJSIP based minimalistic SIP Client"
+msgstr ""
+
+#: forms/dialer.py:157
+msgid "Translations"
+msgstr ""
+
+#: forms/dialer.py:159
+msgid ""
+"This program is free software; you can redistribute it and/or modify\n"
+"                  it under the terms of the <a href=\"http://www.gnu.org/"
+"licenses/old-licenses/gpl-2.0.html\">\n"
+"                  GNU General Public License</a> as published by the Free "
+"Software Foundation; \n"
+"                  either version 2 of the License, or (at your option) any "
+"later version."
 msgstr ""

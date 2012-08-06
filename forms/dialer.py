@@ -115,18 +115,26 @@ class Dialer(formClass, BaseClass):
         self.menu.addAction(self.showAction)
         self.settingsAction = QtGui.QAction(QtGui.QIcon(":/settings.png"), _("Settings"), self)
         self.menu.addAction(self.settingsAction)
+        
+        self.aboutAction = QtGui.QAction(QtGui.QIcon(":/about.png"), _("About"), self)
+        self.menu.addAction(self.aboutAction)
+        
         self.menu.addSeparator()
         self.quitAction = QtGui.QAction(QtGui.QIcon(":/shutdown.png"), _("Quit"), self)
         self.menu.addAction(self.quitAction)
 
         self.tray.setContextMenu(self.menu)
         self.tray.show()
+        
+        
+        
 
     def connectSignals(self):
         self.connect(self.tray, QtCore.SIGNAL("activated(QSystemTrayIcon::ActivationReason)"), self.onTrayClick)
         self.connect(self.quitAction, QtCore.SIGNAL("triggered()"), self.onQuit)
         self.connect(self.showAction, QtCore.SIGNAL("triggered()"), self.showHide)
         self.connect(self.settingsAction, QtCore.SIGNAL("triggered()"), self.settings.show)
+        self.connect(self.aboutAction, QtCore.SIGNAL("triggered()"), self.showAbout)
         self.connect(self.settings, QtCore.SIGNAL("accepted()"), self.settings.save)
         self.connect(self.settings, QtCore.SIGNAL("accepted()"), self.reload)
         self.connect(self.dialButton, QtCore.SIGNAL("clicked()"), self.makeCall)
@@ -134,6 +142,33 @@ class Dialer(formClass, BaseClass):
         self.connect(self.hangupButton, QtCore.SIGNAL("clicked()"), self.hangup)
         self.connect(self.answerButton, QtCore.SIGNAL("clicked()"), self.answer)
         self.connect(self.rejectButton, QtCore.SIGNAL("clicked()"), self.reject)
+
+    def showAbout(self):
+        try:
+            f = open('version', 'r')
+            version = f.readline()
+            f.close()
+        except:
+            version = _("Unknown version")
+        about = ( version,
+                 _("QT and PJSIP based minimalistic SIP Client"),
+                 "<a href=\"https://github.com/bigbn/Telesk\">https://github.com/bigbn/Telesk</a>",
+                 "Copyright (C) 2010-2012 SKAT Ltd. (<a href=\"http://www.scat.su\">http://www.scat.su</a>)",
+                 _("Translations"),
+                 "Ukrainian - Maxim Nosovets (nosovetz@yandex.ua), 2012.",
+                 _("""This program is free software; you can redistribute it and/or modify
+                  it under the terms of the <a href="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html">
+                  GNU General Public License</a> as published by the Free Software Foundation; 
+                  either version 2 of the License, or (at your option) any later version."""))
+
+        QtGui.QMessageBox.about(self,_("About"),"""<h1>Telesk %s</h1>
+                                                    <p>%s</p>
+                                                    <p>%s</p>
+                                                    <p>%s</p>
+                                                    <p><b>%s:</b><br/>
+                                                    %s</p>
+                                                    <p>%s</p>                                                    
+                                                    """ % about)
 
     def reload(self):
         self.config = ConfigParser.RawConfigParser()

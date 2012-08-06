@@ -10,5 +10,6 @@
         <file alias="connected.png">images/telesk_active_24.png</file>
         <file alias="call.png">images/call_.png</file>
         <file alias="hangup.png">images/hangup.png</file>
+        <file alias="about.png">images/help-about.png</file>
     </qresource>
 </RCC>

@@ -138,3 +138,37 @@ msgstr "Ответить"
 #: forms/ui_dialDialog.py:119
 msgid "Reject"
 msgstr "Отклонить"
+
+#: forms/dialer.py:119 forms/dialer.py:164
+msgid "About"
+msgstr "О программе"
+
+#: forms/dialer.py:152
+msgid "Unknown version"
+msgstr "Неизвестная версия"
+
+#: forms/dialer.py:154
+msgid "QT and PJSIP based minimalistic SIP Client"
+msgstr "Минималистичный SIP софтфон базирующийся на PJSIP и QT"
+
+#: forms/dialer.py:157
+msgid "Translations"
+msgstr "Переводы"
+
+#: forms/dialer.py:159
+msgid ""
+"This program is free software; you can redistribute it and/or modify\n"
+"                  it under the terms of the <a href=\"http://www.gnu.org/"
+"licenses/old-licenses/gpl-2.0.html\">\n"
+"                  GNU General Public License</a> as published by the Free "
+"Software Foundation; \n"
+"                  either version 2 of the License, or (at your option) any "
+"later version."
+
+msgstr ""
+"Эта программа свободна; вы можете перераспространять и/или изменять ее на "
+"условиях <a href=\"http://www.gnu.org/"
+"licenses/old-licenses/gpl-2.0.html\">Стандартной общественной лицензии GNU</a>, опубликованной Фондом "
+"свободного программного обеспечения; либо версии&nbsp;2 этой лицензии, либо "
+"(по вашему выбору) любой более поздней версии."
+
