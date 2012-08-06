@@ -146,18 +146,18 @@ class Dialer(formClass, BaseClass):
             self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
 
     def showHide(self):
-        #TODO: Fix this for KDE
-        right = QtGui.QDesktopWidget().screenGeometry().width()-self.width()/2
-        bottom = QtGui.QDesktopWidget().screenGeometry().height()-self.height()/2
+        if sys.platform.startswith("win"):
+            right = QtGui.QDesktopWidget().availableGeometry().width()-self.frameSize().width()
+            bottom = QtGui.QDesktopWidget().availableGeometry().height()-self.frameSize().height()
+        else:
+            right = QtGui.QDesktopWidget().availableGeometry().width()-self.frameSize().width()/2
+            bottom = QtGui.QDesktopWidget().availableGeometry().height()-self.frameSize().height()/2
         self.move(right, bottom)
         self.setVisible(not self.isVisible())
 
     def onTrayClick(self, reason):
-        #TODO: Fix this for KDE
-        right = QtGui.QDesktopWidget().screenGeometry().width()-self.width()/2
-        bottom = QtGui.QDesktopWidget().screenGeometry().height()-self.height()/2
-        self.move(right, bottom)
         if reason == QtGui.QSystemTrayIcon.Trigger:
+            self.showHide()
             self.setVisible(not self.isVisible())
 
     def onQuit(self):
