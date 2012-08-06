@@ -158,7 +158,6 @@ class Dialer(formClass, BaseClass):
     def onTrayClick(self, reason):
         if reason == QtGui.QSystemTrayIcon.Trigger:
             self.showHide()
-            self.setVisible(not self.isVisible())
 
     def onQuit(self):
         debug(_("Exiting"))
