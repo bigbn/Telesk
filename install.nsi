@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "Telesk"
-!define PRODUCT_VERSION "0.1.1"
+!define PRODUCT_VERSION "0.2.0"
 !define PRODUCT_PUBLISHER "SKAT LTD"
 !define PRODUCT_WEB_SITE "http://www.scat.su"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\telesk.exe"
@@ -90,6 +90,7 @@ Section "softphone" SEC01
   File "dist\msvcp90.dll"
   File "dist\msvcr90.dll"
   File "dist\msvcrt.dll"
+  File "version"
   
   SetOverwrite on
   CreateDirectory "$INSTDIR\locale"
