@@ -3,6 +3,7 @@
 # Packages
 *.egg
 *.egg-info
+*.db
 dist
 build
 eggs

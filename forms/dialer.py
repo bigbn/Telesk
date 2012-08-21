@@ -29,6 +29,9 @@ import ConfigParser
 import resource_rc
 from controller import Controller
 from notify import NotifyManager
+from contacts import ContactsForm
+from historyitem import Call
+from database.history import HistoryAdapter
 
 class Dialer(formClass, BaseClass):
     def __init__(self,  parent=None):
@@ -62,7 +65,7 @@ class Dialer(formClass, BaseClass):
                                          border-color: rgb(50,50,50); }""")
 
 
-
+        self.contactsForm = ContactsForm()
         self.numberEdit.button.setStyleSheet("background: transparent; border: none; margin-right: 5px")
         self.notify = NotifyManager()
         self.inactiveIcon = QtGui.QIcon(":/inactive.png")
@@ -80,6 +83,8 @@ class Dialer(formClass, BaseClass):
         self.server = None
         self.login = None
         self.password = None
+        
+        self.calls = HistoryAdapter()
 
         try:
             self.server = self.config.get("sip", "server")
@@ -97,12 +102,12 @@ class Dialer(formClass, BaseClass):
             debug(_("Audio-device error"))
 
     def trans(self,string):
-	    if not sys.platform.startswith("win"):
-		    return string
-	    else:
-		    return unicode(string.decode("CP1251"))
+        if not sys.platform.startswith("win"):
+            return string
+        else:
+            return unicode(string.decode("CP1251"))
 
-	
+
     def createTrayIcon(self):
         # Создаем иконку в трее
         icon = QtGui.QIcon(":/inactive.png")
@@ -125,11 +130,20 @@ class Dialer(formClass, BaseClass):
 
         self.tray.setContextMenu(self.menu)
         self.tray.show()
-        
-        
-        
 
     def connectSignals(self):
+
+        sc = QtGui.QAction("Show contacts",self)
+        sc.setShortcut(QtGui.QKeySequence("Alt+Up"))
+        self.addAction(sc)
+        
+        hc = QtGui.QAction("Hide contacts",self)
+        hc.setShortcut(QtGui.QKeySequence("Alt+Down"))
+        self.addAction(hc)
+        
+        sc.triggered.connect(self.showContacts)
+        hc.triggered.connect(self.hideContacts)
+        
         self.connect(self.tray, QtCore.SIGNAL("activated(QSystemTrayIcon::ActivationReason)"), self.onTrayClick)
         self.connect(self.quitAction, QtCore.SIGNAL("triggered()"), self.onQuit)
         self.connect(self.showAction, QtCore.SIGNAL("triggered()"), self.showHide)
@@ -142,6 +156,20 @@ class Dialer(formClass, BaseClass):
         self.connect(self.hangupButton, QtCore.SIGNAL("clicked()"), self.hangup)
         self.connect(self.answerButton, QtCore.SIGNAL("clicked()"), self.answer)
         self.connect(self.rejectButton, QtCore.SIGNAL("clicked()"), self.reject)
+
+    def showContacts(self):
+        print "ok"
+        self.contactsForm.show()
+        calls = self.calls.list()
+        print calls
+        for call in calls:
+            widget = Call(call)
+            self.contactsForm.vcallsLayout.addWidget(widget)
+
+
+    def hideContacts(self):
+        print "ok"
+        self.contactsForm.hide()
 
     def showAbout(self):
         try:
@@ -231,6 +259,7 @@ class Dialer(formClass, BaseClass):
             self.setWindowTitle(_("Call in process"))
             self.startTimer()
             self.show_call()
+            self.calls.outgoing(self.uri)
             
         if state == "DISCONNCTD":
             self.setWindowTitle(_("Telesk"))
