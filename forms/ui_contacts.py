@@ -24,10 +24,10 @@ class Ui_Contacts(object):
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.tabWidget = QtGui.QTabWidget(Form)
         self.tabWidget.setObjectName(_fromUtf8("tabWidget"))
-        self.tab = QtGui.QWidget()
+        #self.tab = QtGui.QWidget()
 
-        self.tab.setObjectName(_fromUtf8("tab"))
-        self.tabWidget.addTab(self.tab, _fromUtf8(""))
+        #self.tab.setObjectName(_fromUtf8("tab"))
+        #self.tabWidget.addTab(self.tab, _fromUtf8(""))
         self.tab_2 = QtGui.QWidget()
         self.tab_2.setObjectName(_fromUtf8("tab_2"))
 
@@ -54,6 +54,6 @@ class Ui_Contacts(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QtGui.QApplication.translate("Form", "Contacts", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QtGui.QApplication.translate("Form", "Contacs", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QtGui.QApplication.translate("Form", "History", None, QtGui.QApplication.UnicodeUTF8))
+        #self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QtGui.QApplication.translate("Form", "Contacs", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _("Calls history"))
 

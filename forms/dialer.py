@@ -36,6 +36,7 @@ from database.history import HistoryAdapter
 class Dialer(formClass, BaseClass):
     def __init__(self,  parent=None):
         self.uri = ""
+        self.callswidgets = []
         self.config = ConfigParser.RawConfigParser()
         self.config.readfp(getConfig())
         super(Dialer, self).__init__(parent,QtCore.Qt.FramelessWindowHint)
@@ -160,20 +161,36 @@ class Dialer(formClass, BaseClass):
     def showContacts(self):
         print "ok"
         self.contactsForm.show()
+        if sys.platform.startswith("win"):
+            right = QtGui.QDesktopWidget().availableGeometry().width()-self.frameSize().width()
+            bottom = QtGui.QDesktopWidget().availableGeometry().height()-self.frameSize().height()-self.contactsForm.frameSize().height()
+        else:
+            right = QtGui.QDesktopWidget().availableGeometry().width()-self.frameSize().width()/2
+            bottom = QtGui.QDesktopWidget().availableGeometry().height()-self.frameSize().height()/2-self.contactsForm.frameSize().height()
+        self.contactsForm.move(right, bottom)
+
+        #FIXME Такой подход не оптимален
+        self.fillHistoryList()
+
+    def clearHistoryList(self):
+        for widget in self.callswidgets:
+            selfcontactsForm.vcallsLayout.removeWidget(widget)
+            widget.deleteLater()
+
+    def fillHistoryList(self):
+        self.clearHistoryList()
         calls = self.calls.list()
-        print calls
         for call in calls:
             widget = Call(call)
+            self.callswidgets.append(widget)
             self.contactsForm.vcallsLayout.addWidget(widget)
 
-
     def hideContacts(self):
-        print "ok"
         self.contactsForm.hide()
 
     def showAbout(self):
+        f = open(os.path.dirname(os.path.abspath(sys.argv[0]))+'/version', 'r')
         try:
-            f = open(os.path.dirname(os.path.abspath(sys.argv[0]))+'/version', 'r')
             version = f.readline()
             f.close()
         except:
@@ -215,8 +232,12 @@ class Dialer(formClass, BaseClass):
         else:
             right = QtGui.QDesktopWidget().availableGeometry().width()-self.frameSize().width()/2
             bottom = QtGui.QDesktopWidget().availableGeometry().height()-self.frameSize().height()/2
+
         self.move(right, bottom)
-        self.setVisible(not self.isVisible())
+        self.contactsForm.move(right, bottom-self.contactsForm.frameSize().height())
+        state = not self.isVisible()
+        self.setVisible(state)
+        self.contactsForm.setVisible(state)
 
     def onTrayClick(self, reason):
         if reason == QtGui.QSystemTrayIcon.Trigger:
@@ -260,6 +281,7 @@ class Dialer(formClass, BaseClass):
             self.startTimer()
             self.show_call()
             self.calls.outgoing(self.uri)
+            self.fillHistoryList()
             
         if state == "DISCONNCTD":
             self.setWindowTitle(_("Telesk"))

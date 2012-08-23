@@ -28,6 +28,7 @@ class HistoryAdapter():
 
     def preinit(self):
         self.cursor.execute("CREATE TABLE IF NOT EXISTS History(%s TEXT , %s TEXT, %s INT, %s INT)" % (self.DATE,self.PHONE, self.DURATION, self.DIRECTION ))
+        self.connection.commit()
 
     def incoming(self,phone):
         date = datetime.datetime.now().strftime('%H:%M %d.%m')
