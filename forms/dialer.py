@@ -203,7 +203,7 @@ class Dialer(formClass, BaseClass):
             version = _("Unknown version")
         about = ( version,
                  _("QT and PJSIP based minimalistic SIP Client"),
-                 "<a href=\"https://github.com/bigbn/Telesk\">https://github.com/bigbn/Telesk</a>",
+                 "<a href=\"http://telesk.scat.su/\">http://telesk.scat.su</a>",
                  "Copyright (C) 2010-2012 SKAT Ltd. (<a href=\"http://www.scat.su\">http://www.scat.su</a>)",
                  _("Translations"),
                  "Ukrainian - Maxim Nosovets (nosovetz@yandex.ua), 2012.",

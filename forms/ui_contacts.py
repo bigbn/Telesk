@@ -51,7 +51,7 @@ class Ui_Contacts(object):
         self.retranslateUi(Form)
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Form)
-        self.is_hidden = true
+        self.is_hidden = True
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QtGui.QApplication.translate("Form", "Contacts", None, QtGui.QApplication.UnicodeUTF8))
