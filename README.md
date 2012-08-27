@@ -12,12 +12,6 @@ https://github.com/downloads/bigbn/Telesk/telesk_0.2.0-precise_i386.deb - Ubuntu
 
 https://github.com/downloads/bigbn/Telesk/telesk_setup_0.2.0.exe - Windows(x86) installer
 
-Usage:
--------------------
- ./main     - Launch telesk
- 
- ./main -d  - Launch telesk with debug output
-
 Requirements:
 -------------------
 You need PyQt4 and python2 installed to run Telesk.
