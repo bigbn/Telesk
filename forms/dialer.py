@@ -173,9 +173,14 @@ class Dialer(formClass, BaseClass):
         self.fillHistoryList()
 
     def clearHistoryList(self):
+        print len(self.callswidgets)
         for widget in self.callswidgets:
-            selfcontactsForm.vcallsLayout.removeWidget(widget)
+            self.contactsForm.vcallsLayout.removeWidget(widget)
             widget.deleteLater()
+        self.callswidgets = []
+
+    def historycall(self,phone):
+        self.numberEdit.setText(phone)
 
     def fillHistoryList(self):
         self.clearHistoryList()
@@ -184,6 +189,7 @@ class Dialer(formClass, BaseClass):
             widget = Call(call)
             self.callswidgets.append(widget)
             self.contactsForm.vcallsLayout.addWidget(widget)
+            widget.clicked.connect(self.historycall)
 
     def hideContacts(self):
         self.contactsForm.hide()
