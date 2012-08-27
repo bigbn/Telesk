@@ -159,7 +159,7 @@ class Dialer(formClass, BaseClass):
         self.connect(self.rejectButton, QtCore.SIGNAL("clicked()"), self.reject)
 
     def showContacts(self):
-        print "ok"
+        self.contactsForm.is_hidden = False
         self.contactsForm.show()
         if sys.platform.startswith("win"):
             right = QtGui.QDesktopWidget().availableGeometry().width()-self.frameSize().width()
@@ -193,6 +193,7 @@ class Dialer(formClass, BaseClass):
 
     def hideContacts(self):
         self.contactsForm.hide()
+        self.contactsForm.is_hidden = True
 
     def showAbout(self):
         f = open(os.path.dirname(os.path.abspath(sys.argv[0]))+'/version', 'r')
@@ -243,7 +244,8 @@ class Dialer(formClass, BaseClass):
         self.contactsForm.move(right, bottom-self.contactsForm.frameSize().height())
         state = not self.isVisible()
         self.setVisible(state)
-        self.contactsForm.setVisible(state)
+        if not self.contactsForm.is_hidden:
+            self.contactsForm.setVisible(state)
 
     def onTrayClick(self, reason):
         if reason == QtGui.QSystemTrayIcon.Trigger:
