@@ -31,12 +31,15 @@ from controller import Controller
 from notify import NotifyManager
 from contacts import ContactsForm
 from historyitem import Call
+from contactsitem import Contact
 from database.history import HistoryAdapter
+from database.contacts import ContactsAdapter
 
 class Dialer(formClass, BaseClass):
     def __init__(self,  parent=None):
         self.uri = ""
         self.callswidgets = []
+        self.contactswidgets = []
         self.config = ConfigParser.RawConfigParser()
         self.config.readfp(getConfig())
         super(Dialer, self).__init__(parent,QtCore.Qt.FramelessWindowHint)
@@ -86,7 +89,7 @@ class Dialer(formClass, BaseClass):
         self.password = None
         
         self.calls = HistoryAdapter()
-
+        self.contacts = ContactsAdapter()
         try:
             self.server = self.config.get("sip", "server")
             self.login = self.config.get("sip", "login")
@@ -171,6 +174,7 @@ class Dialer(formClass, BaseClass):
 
         #FIXME Такой подход не оптимален
         self.fillHistoryList()
+        self.fillContactsList()
 
     def clearHistoryList(self):
         print len(self.callswidgets)
@@ -189,6 +193,17 @@ class Dialer(formClass, BaseClass):
             widget = Call(call)
             self.callswidgets.append(widget)
             self.contactsForm.vcallsLayout.addWidget(widget)
+            widget.clicked.connect(self.historycall)
+
+    def fillContactsList(self):
+        #self.clearContactsList()
+        contacts = self.contacts.list()
+
+        print  "Contacs: %s" % contacts
+        for contact in contacts:
+            widget = Contact(contact)
+            self.contactswidgets.append(widget)
+            self.contactsForm.vcontactsLayout.addWidget(widget)
             widget.clicked.connect(self.historycall)
 
     def hideContacts(self):

@@ -24,15 +24,21 @@ class Ui_Contacts(object):
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.tabWidget = QtGui.QTabWidget(Form)
         self.tabWidget.setObjectName(_fromUtf8("tabWidget"))
-        #self.tab = QtGui.QWidget()
+        self.tab = QtGui.QWidget()
 
-        #self.tab.setObjectName(_fromUtf8("tab"))
-        #self.tabWidget.addTab(self.tab, _fromUtf8(""))
+        self.tab.setObjectName(_fromUtf8("Contacs"))
+        self.tabWidget.addTab(self.tab, _fromUtf8(""))
         self.tab_2 = QtGui.QWidget()
         self.tab_2.setObjectName(_fromUtf8("tab_2"))
 
+        self.cscrollArea = QtGui.QScrollArea(self.tab)
+        self.cscrollArea.setStyleSheet("background: rgb(40,40,40); border-color: rgb(50,50,50)")
+        self.cscrollArea.setWidgetResizable(True)
+        self.cscrollAreaWidgetContents = QtGui.QWidget()
+        self.cscrollAreaWidgetContents.setStyleSheet("background: rgb(40,40,40); border-color: rgb(50,50,50)")
+        self.cscrollArea.setGeometry(QtCore.QRect(0, 0, 370, 240))
+        self.cscrollArea.setWidget(self.cscrollAreaWidgetContents)
 
-        
         self.scrollArea = QtGui.QScrollArea(self.tab_2)
         self.scrollArea.setStyleSheet("background: rgb(40,40,40); border-color: rgb(50,50,50)")
         self.scrollArea.setWidgetResizable(True)
@@ -40,11 +46,13 @@ class Ui_Contacts(object):
         self.scrollAreaWidgetContents.setStyleSheet("background: rgb(40,40,40); border-color: rgb(50,50,50)")
         self.scrollArea.setGeometry(QtCore.QRect(0, 0, 370, 240))
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-        
-        self.vcallsLayout =  QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
-        
+
+        self.vcallsLayout =  QtGui.QVBoxLayout(self.scrollAreaWidgetContents)        
         self.vcallsLayout.setSpacing(0)
 
+        self.vcontactsLayout =  QtGui.QVBoxLayout(self.cscrollAreaWidgetContents)        
+        self.vcontactsLayout.setSpacing(0)
+        
         self.tabWidget.addTab(self.tab_2, _fromUtf8(""))
         self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
 
@@ -55,6 +63,6 @@ class Ui_Contacts(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QtGui.QApplication.translate("Form", "Contacts", None, QtGui.QApplication.UnicodeUTF8))
-        #self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QtGui.QApplication.translate("Form", "Contacs", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _("Calls history"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _("Contacs"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _("Calls"))
 
