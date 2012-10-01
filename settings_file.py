@@ -20,18 +20,22 @@ from StringIO import StringIO
 import os, sys
 from debug import debug
 
+def profile_path(filename):
+    if filename is not None:
+        if not sys.platform.startswith("win"):
+            path = os.path.expanduser("~") + "/.skat"
+            if not os.path.exists(path):
+                os.makedirs(path)
+            FILE = os.path.join(path, filename)
+        else:
+            path = os.path.expanduser("~") + "\\skat"
+            if not os.path.exists(path):
+                os.makedirs(path)    
+            FILE = "%s\\%s" % (path,filename)
+    return FILE
+
 CKEY = "Jksaa68snHa[pewmxTgsoiq-234sjs;sa032ngldf"
-SETTINGS_FILE = "settings.conf"
-if not sys.platform.startswith("win"):
-    path = os.path.expanduser("~") + "/.skat"
-    if not os.path.exists(path):
-        os.makedirs(path)
-    SETTINGS_FILE = os.path.join(path, 'telesk.conf')
-else:
-    path = os.path.expanduser("~") + "\\skat"
-    if not os.path.exists(path):
-        os.makedirs(path)    
-    SETTINGS_FILE = path + "\\telesk.conf"
+SETTINGS_FILE = profile_path("settings.conf")
 
 def mycrypt(aString, key):
     kIdx = 0

@@ -114,9 +114,9 @@ class Core(object):
             
         def _bind(self):
             try:
-                self.transport = self.lib.create_transport(pj.TransportType.UDP, pj.TransportConfig(int(self.config.get("sip", "port"))))
+                self.transport = self.lib.create_transport(pj.TransportType.UDP, pj.TransportConfig(5060)) #int(self.config.get("sip", "port"))))
             except pj.Error:
-                debug("Error creating transport.")
+                debug(pj.Error)
         
         def _start_lib(self):
             self.lib.init()

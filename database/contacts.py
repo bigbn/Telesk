@@ -4,6 +4,8 @@
 import sqlite3 as lite
 import sys
 import datetime
+from settings_file import profile_path
+
 class ContactsAdapter():
     def __init__(self):
         self.TABLE_NAME = "Contacts"
@@ -14,8 +16,9 @@ class ContactsAdapter():
         self.connection = None
         self.cursor = None
         self.debug = True
+        
         try:
-            self.connection = lite.connect("history.db")
+            self.connection = lite.connect(profile_path("data.db"))
             self.cursor = self.connection.cursor()
             self.cursor.execute('SELECT SQLITE_VERSION()')
 

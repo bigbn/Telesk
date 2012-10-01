@@ -96,6 +96,7 @@ class Dialer(formClass, BaseClass):
             self.password = self.config.get("sip", "password")
         except:
             pass
+
         for sd in self.controller.core.lib.enum_snd_dev():
             self.settings.inputComboBox.addItem(self.trans(sd.name))
             self.settings.outputComboBox.addItem(self.trans(sd.name))

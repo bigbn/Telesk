@@ -39,6 +39,5 @@ def main():
     rc = app.exec_()
     sys.exit(rc)
 
-
 if __name__ == "__main__":
     main()
