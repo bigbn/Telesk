@@ -26,12 +26,18 @@ except AttributeError:
 class Ui_DialWindow(object):
     def setupUi(self, DialWindow):
         DialWindow.setObjectName(_fromUtf8("DialWindow"))
-        DialWindow.resize(400, 45)
+        DialWindow.resize(400, 70)
         self.setMaximumWidth(400)
-        self.setMaximumHeight(45)
-        self.setWindowIcon(QtGui.QIcon('images/telesk.png'))        
-        self.horizontalLayout = QtGui.QHBoxLayout(DialWindow)
+        self.setMaximumHeight(70)
+        self.setWindowIcon(QtGui.QIcon('images/telesk.png'))
+        self.baseLayout = QtGui.QVBoxLayout(DialWindow)
+        self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
+
+        #phonty items
+        self.balance_label = QtGui.QLabel(self)
+        self.balance_label.setText(u"Your balance is 0.0 USD")
+        self.baseLayout.addWidget(self.balance_label)
 
         # call process
         font = QtGui.QFont()
@@ -119,6 +125,16 @@ class Ui_DialWindow(object):
         self.rejectButton.hide()
         self.answerButton.hide()
 
+        self.baseLayout.addLayout(self.horizontalLayout)
+
+        #phonty elements
+        self.direction_cost_label = QtGui.QLabel(self)
+        self.direction_cost_label.setText(u"Russia Megafon 0.76 USD per minute")
+        font = QtGui.QFont()
+        font.setPointSize(8)
+        self.direction_cost_label.setFont(font)
+        self.baseLayout.addWidget(self.direction_cost_label)
+ 
         self.retranslateUi(DialWindow)
         QtCore.QMetaObject.connectSlotsByName(DialWindow)
 

@@ -59,14 +59,14 @@ class Dialer(formClass, BaseClass):
                 self.dialButton.setIcon(QtGui.QIcon.fromTheme("call-start"))
                 self.hangupButton.setIcon(QtGui.QIcon.fromTheme("call-stop"))
         except:
-            self.setStyleSheet("""QPushButton,QToolButton {background-color: rgb(40,40,40); height: 20px; color: rgb(255,255,255);  border-style: outset; border-width: 1px;
-                              border-color: rgb(50,50,50);}
-                              QDialog {background-color: rgb(10,10,10); color: rgb(255,255,255); border-style: outset; border-width: 1px;
-                                         border-color: rgb(50,50,50);
+            self.setStyleSheet("""QPushButton,QToolButton {background-color: rgb(100,255,100); height: 20px; color: rgb(255,255,255);  border-style: outset; border-width: 1px;
+                              border-color: rgb(200,200,200);}
+                              QDialog {background-color: rgb(230,230,230); color: rgb(0,0,0); border-style: outset; border-width: 1px;
+                                         border-color: rgb(200,200,200);
 }
-                              QLabel {color: rgb(255,255,255);}
-                              QLineEdit {color: white; background-color: rgb(30,30,30); border-style: outset; border-width: 1px;
-                                         border-color: rgb(50,50,50); }""")
+                              QLabel {color: rgb(0,0,0);}
+                              QLineEdit {color: rgb(30,30,30); background-color: rgb(255,255,255); border-style: inset; border-width: 1px;
+                                         border-color: rgb(180,180,180); }""")
 
 
         self.contactsForm = ContactsForm()
