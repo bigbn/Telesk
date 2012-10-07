@@ -16,6 +16,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+import threading
+from japi.japi import Phonty
 from PyQt4 import QtCore, QtGui
 from forms.customWidgets import ClearLineEdit
 try:
@@ -25,6 +27,11 @@ except AttributeError:
 
 class Ui_DialWindow(object):
     def setupUi(self, DialWindow):
+        #init phonty
+        self.phonty = Phonty()
+        self.phonty.login("79127574956","iafzo7")
+
+        #interface
         DialWindow.setObjectName(_fromUtf8("DialWindow"))
         DialWindow.resize(400, 70)
         self.setMaximumWidth(400)
@@ -129,14 +136,29 @@ class Ui_DialWindow(object):
 
         #phonty elements
         self.direction_cost_label = QtGui.QLabel(self)
-        self.direction_cost_label.setText(u"Russia Megafon 0.76 USD per minute")
+        self.direction_cost_label.setText(u"Russia Megafon 0.76 USD per minutes")
         font = QtGui.QFont()
         font.setPointSize(8)
         self.direction_cost_label.setFont(font)
         self.baseLayout.addWidget(self.direction_cost_label)
- 
+        #async try
+        thread = threading.Thread(target = self.get_balance )
+        thread.start() 
+
         self.retranslateUi(DialWindow)
         QtCore.QMetaObject.connectSlotsByName(DialWindow)
+        self.numberEdit.textChanged.connect(self.async_direction_cost)
+
+    def get_balance(self):
+        self.balance_label.setText(_("Your balance is ")+self.phonty.balance())
+
+    def async_direction_cost(self,number):
+        thread = threading.Thread(target = self.get_direction_cost, args = (number,) )
+        thread.start() 
+    
+    def get_direction_cost(self,number):
+        price = self.phonty.direction_cost(number,"EN")
+        self.direction_cost_label.setText("%s - %s: %s per minute" % (price["country"], price["provider"], price["amount"]))
 
     def retranslateUi(self, DialWindow):
         DialWindow.setWindowTitle(QtGui.QApplication.translate("DialWindow", "Telesk", None, QtGui.QApplication.UnicodeUTF8))
