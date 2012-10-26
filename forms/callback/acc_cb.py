@@ -32,9 +32,9 @@ class acc_cb(pj.AccountCallback):
     def __init__(self, account=None):
         pj.AccountCallback.__init__(self, account)
         self.core = Core()
- 
+
     def on_reg_state(self):
-        acc_info = self.account.info()   
+        acc_info = self.account.info()
         self.core.cb.regstate(str(acc_info.uri), str(acc_info.reg_status), str(acc_info.reg_reason))
 
     def on_incoming_call(self, call):
@@ -62,9 +62,9 @@ class acc_cb(pj.AccountCallback):
             finally:
                 self.core.calls.current = call
                 from call_cb import call_cb
-                self.core.calls.current.set_callback(call_cb())        
+                self.core.calls.current.set_callback(call_cb())
                 self.core.calls.current.answer(180)
-                
+
                 info = call.info()
                 self.core.cb.incoming_call(info, dev_error)
 

@@ -30,7 +30,7 @@ def profile_path(filename):
         else:
             path = os.path.expanduser("~") + "\\skat"
             if not os.path.exists(path):
-                os.makedirs(path)    
+                os.makedirs(path)
             FILE = "%s\\%s" % (path,filename)
     return FILE
 

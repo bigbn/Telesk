@@ -17,10 +17,10 @@ class ContactsForm(formClass, BaseClass):
                               QLabel {color: rgb(255,255,255);}
                               QTabWidget::pane { border-top: 0px solid #C2C7CB; }
                                QTabBar::tab { background-color: rgb(30,30,30); color: white; font-weight: bold}
- 
+
                               """)
 
-        
+
     def fillHistory(self):
         pass
 

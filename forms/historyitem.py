@@ -35,12 +35,12 @@ class Call(QtGui.QWidget):
      self.vLayout2.addWidget(self.direction)
      self.hLayout.addLayout(self.vLayout)
      self.hLayout.addLayout(self.vLayout2)
-     
+
   def mousePressEvent(self, event):
      self.phonenum = self.phone.text()
      self.setFocus(QtCore.Qt.OtherFocusReason)
      event.accept()
-    
+
   def mouseReleaseEvent(self, event):
      if event.button() == QtCore.Qt.LeftButton:
        self.update()

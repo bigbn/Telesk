@@ -27,17 +27,19 @@ except AttributeError:
 
 class Ui_DialWindow(object):
     def setupUi(self, DialWindow):
-        #init phonty
         self.phonty = Phonty()
-        self.phonty.login("79127574956","iafzo7")
-
         #interface
         DialWindow.setObjectName(_fromUtf8("DialWindow"))
-        DialWindow.resize(400, 70)
-        self.setMaximumWidth(400)
+        DialWindow.resize(350, 70)
+        self.setMaximumWidth(350)
         self.setMaximumHeight(70)
         self.setWindowIcon(QtGui.QIcon('images/telesk.png'))
         self.baseLayout = QtGui.QVBoxLayout(DialWindow)
+        self.top_spacer = QtGui.QSpacerItem(40,
+                                        50,
+                                        QtGui.QSizePolicy.Expanding,
+                                        QtGui.QSizePolicy.Minimum)
+        self.baseLayout.addItem(self.top_spacer)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
 
@@ -50,7 +52,7 @@ class Ui_DialWindow(object):
         font = QtGui.QFont()
         font.setPointSize(8)
         self.processLayout = QtGui.QVBoxLayout()
-        
+
         self.callerIDLabel = QtGui.QLabel(self)
         self.callerIDLabel.setSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Maximum)
         self.callerIDLabel.setFont(font)
@@ -62,14 +64,14 @@ class Ui_DialWindow(object):
         self.timer = QtCore.QTimer()
         self.timer.setInterval(1000)
         self.connect(self.timer, QtCore.SIGNAL("timeout()"), self.onTimer)
-        
+
         self.timerLabel = QtGui.QLabel(self)
         self.timerLabel.setText(u"0:00")
         self.timerLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.processLayout.addWidget(self.callerIDLabel)
         self.processLayout.addWidget(self.timerLabel)
 
-        
+
         self.hangupButton = QtGui.QToolButton(DialWindow)
         self.hangupButton.setMinimumSize(QtCore.QSize(0, 36))
         self.hangupButton.setStyleSheet(_fromUtf8(""))
@@ -77,10 +79,10 @@ class Ui_DialWindow(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/hangup.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.hangupButton.setIcon(icon)
-        
+
         self.horizontalLayout.addLayout(self.processLayout)
         self.horizontalLayout.addWidget(self.hangupButton)
-        
+
         self.timerLabel.hide()
         self.callerIDLabel.hide()
         self.hangupButton.hide()
@@ -94,25 +96,19 @@ class Ui_DialWindow(object):
         self.numberEdit.setObjectName(_fromUtf8("numberEdit"))
         self.horizontalLayout.addWidget(self.numberEdit)
 
-        
+
         self.dialButton = QtGui.QToolButton(DialWindow)
         self.dialButton.setMinimumSize(QtCore.QSize(0, 36))
         self.dialButton.setStyleSheet(_fromUtf8(""))
         icon = QtGui.QIcon()
-        
+
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/call.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.dialButton.setIcon(icon)
-        right = QtGui.QDesktopWidget().screenGeometry().width()-self.width()/2
-        bottom = QtGui.QDesktopWidget().screenGeometry().height()-self.height()/2
-        self.move(right, bottom)
 
-       
-        
-        self.move(right,bottom)
         self.dialButton.setIconSize(QtCore.QSize(36, 36))
         self.dialButton.setObjectName(_fromUtf8("dialButton"))
         self.horizontalLayout.addWidget(self.dialButton)
-        
+
         #incoming
         self.incomingLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName(_fromUtf8("incomingLayout"))
@@ -136,26 +132,71 @@ class Ui_DialWindow(object):
 
         #phonty elements
         self.direction_cost_label = QtGui.QLabel(self)
-        self.direction_cost_label.setText(u"Russia Megafon 0.76 USD per minutes")
+        self.direction_cost_label.setText(u" ")
         font = QtGui.QFont()
         font.setPointSize(8)
         self.direction_cost_label.setFont(font)
         self.baseLayout.addWidget(self.direction_cost_label)
-        #async try
-        thread = threading.Thread(target = self.get_balance )
-        thread.start() 
 
         self.retranslateUi(DialWindow)
         QtCore.QMetaObject.connectSlotsByName(DialWindow)
         self.numberEdit.textChanged.connect(self.async_direction_cost)
+        
+        #login
+        self.v_base_lay = self.baseLayout
+        self.h_main_lay = QtGui.QHBoxLayout()
+
+        movie = QtGui.QMovie(":/loader.gif")
+        self.loader = QtGui.QLabel()
+        self.loader.setMovie(movie)
+        self.loader.setStyleSheet("padding: 5px")
+        self.loader.setVisible(False)
+        movie.start()
+
+        self.loader.setAlignment(QtCore.Qt.AlignRight)
+
+        self.v_base_lay.addWidget(self.loader)
+
+        self.v_base_lay.addLayout(self.h_main_lay)
+
+        self.v_account_lay = QtGui.QVBoxLayout()
+        self.h_main_lay.addLayout(self.v_account_lay)
+
+        self.login_label = QtGui.QLabel()
+        self.login_label.setText("Login")
+        self.v_account_lay.addWidget(self.login_label)
+        self.login_edit = ClearLineEdit()
+        self.v_account_lay.addWidget(self.login_edit)
+
+        self.password_label = QtGui.QLabel()
+        self.password_label.setText("Password")
+        self.v_account_lay.addWidget(self.password_label)
+        self.password_edit = QtGui.QLineEdit()
+        self.password_edit.setEchoMode(QtGui.QLineEdit.Password)
+        self.v_account_lay.addWidget(self.password_edit)
+
+        self.remember_password_check = QtGui.QCheckBox()
+        self.remember_password_check.setText("Remember password")
+        self.v_account_lay.addWidget(self.remember_password_check)
+
+        self.h_buttons_lay = QtGui.QHBoxLayout()
+        self.v_base_lay.addLayout(self.h_buttons_lay)
+
+        self.register_button = QtGui.QPushButton()
+        self.register_button.setText("Sign Up")
+        self.h_buttons_lay.addWidget(self.register_button)
+
+        self.login_button = QtGui.QPushButton()
+        self.login_button.setText("Sign In")
+        self.h_buttons_lay.addWidget(self.login_button)
 
     def get_balance(self):
         self.balance_label.setText(_("Your balance is ")+self.phonty.balance())
 
     def async_direction_cost(self,number):
         thread = threading.Thread(target = self.get_direction_cost, args = (number,) )
-        thread.start() 
-    
+        thread.start()
+
     def get_direction_cost(self,number):
         price = self.phonty.direction_cost(number,"EN")
         self.direction_cost_label.setText("%s - %s: %s per minute" % (price["country"], price["provider"], price["amount"]))
@@ -179,5 +220,3 @@ class Ui_DialWindow(object):
     def startTimer(self):
         self.seconds = 0
         self.timer.start()
-
-import resource_rc

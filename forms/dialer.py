@@ -14,11 +14,12 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 from PyQt4 import QtCore, QtGui
 BaseClass = QtGui.QDialog
 from ui_dialDialog import Ui_DialWindow as formClass
+from forms.customWidgets import ClearLineEdit
 import sys
 from debug import debug
 import os
@@ -34,6 +35,7 @@ from historyitem import Call
 from contactsitem import Contact
 from database.history import HistoryAdapter
 from database.contacts import ContactsAdapter
+import threading
 
 class Dialer(formClass, BaseClass):
     def __init__(self,  parent=None):
@@ -42,32 +44,20 @@ class Dialer(formClass, BaseClass):
         self.contactswidgets = []
         self.config = ConfigParser.RawConfigParser()
         self.config.readfp(getConfig())
-        super(Dialer, self).__init__(parent,QtCore.Qt.FramelessWindowHint)
+        super(Dialer, self).__init__(parent)
         self.errortimer = QtCore.QTimer()
         self.errortimer.setInterval(1000)
-        self.setupUi(self)
-        try:
-            if self.config.getboolean("main", "aot"):
-                self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
-        except:
-            pass
 
-        try:
-            if not self.config.getboolean("main", "ust"):
-                a=1/0
-            else:
-                self.dialButton.setIcon(QtGui.QIcon.fromTheme("call-start"))
-                self.hangupButton.setIcon(QtGui.QIcon.fromTheme("call-stop"))
-        except:
-            self.setStyleSheet("""QPushButton,QToolButton {background-color: rgb(100,255,100); height: 20px; color: rgb(255,255,255);  border-style: outset; border-width: 1px;
-                              border-color: rgb(200,200,200);}
-                              QDialog {background-color: rgb(230,230,230); color: rgb(0,0,0); border-style: outset; border-width: 1px;
+        self.setupUi(self)
+        """QPushButton,QToolButton {background-color: rgb(100,255,100); height: 20px; color: rgb(255,255,255); 
+             border-style: outset; border-width: 1px; border-color: rgb(200,200,200);}"""
+        self.setStyleSheet("""
+                              QDialog {background: white url(:/phonty.png) no-repeat top left; color: rgb(0,0,0); border-style: outset; border-width: 1px;
                                          border-color: rgb(200,200,200);
 }
                               QLabel {color: rgb(0,0,0);}
                               QLineEdit {color: rgb(30,30,30); background-color: rgb(255,255,255); border-style: inset; border-width: 1px;
                                          border-color: rgb(180,180,180); }""")
-
 
         self.contactsForm = ContactsForm()
         self.numberEdit.button.setStyleSheet("background: transparent; border: none; margin-right: 5px")
@@ -75,19 +65,21 @@ class Dialer(formClass, BaseClass):
         self.inactiveIcon = QtGui.QIcon(":/inactive.png")
         self.connectedIcon = QtGui.QIcon(":/connected.png")
         self.errorIcon = QtGui.QIcon(":/error.png")
-        
+
         self.dialIcon = QtGui.QIcon(":/call.png")
         self.hangupIcon = QtGui.QIcon(":/stop.png")
         self.settings = SettingsForm()
-        self.controller = Controller(self)
-        self.settings.load()
+        #self.controller = Controller(self)
+        #self.login = LoginForm()
+        #self.login.start()
+        #self.settings.load()
         self.createTrayIcon()
         self.connectSignals()
 
         self.server = None
         self.login = None
         self.password = None
-        
+
         self.calls = HistoryAdapter()
         self.contacts = ContactsAdapter()
         try:
@@ -96,15 +88,18 @@ class Dialer(formClass, BaseClass):
             self.password = self.config.get("sip", "password")
         except:
             pass
+        self.hide_all()
 
-        for sd in self.controller.core.lib.enum_snd_dev():
-            self.settings.inputComboBox.addItem(self.trans(sd.name))
-            self.settings.outputComboBox.addItem(self.trans(sd.name))
-        self.settings.load()
-        try:
-            self.controller.core.lib.set_snd_dev(self.settings.inputComboBox.currentIndex(), self.settings.outputComboBox.currentIndex())
-        except:
-            debug(_("Audio-device error"))
+        #for sd in self.controller.core.lib.enum_snd_dev():
+        #    self.settings.inputComboBox.addItem(self.trans(sd.name))
+        #    self.settings.outputComboBox.addItem(self.trans(sd.name))
+        #self.settings.load()
+        #self.show()
+        #import pdb; pdb.set_trace()
+        #try:
+        #    self.controller.core.lib.set_snd_dev(self.settings.inputComboBox.currentIndex(), self.settings.outputComboBox.currentIndex())
+        #except:
+        #    debug(_("Audio-device error"))
 
     def trans(self,string):
         if not sys.platform.startswith("win"):
@@ -112,27 +107,26 @@ class Dialer(formClass, BaseClass):
         else:
             return unicode(string.decode("CP1251"))
 
-
     def createTrayIcon(self):
         # Создаем иконку в трее
         icon = QtGui.QIcon(":/inactive.png")
-        
+
         self.setWindowIcon(icon)
         self.tray = QtGui.QSystemTrayIcon(icon, self)
 
         self.menu =QtGui.QMenu(self)
         self.showAction = QtGui.QAction(_("Activate"), self)
         self.menu.addAction(self.showAction)
-        self.settingsAction = QtGui.QAction(QtGui.QIcon(":/settings.png"), _("Settings"), self)
-        self.menu.addAction(self.settingsAction)
-        
+        #self.settingsAction = QtGui.QAction(QtGui.QIcon(":/settings.png"), _("Settings"), self)
+        #self.menu.addAction(self.settingsAction)
+
         self.aboutAction = QtGui.QAction(QtGui.QIcon(":/about.png"), _("About"), self)
         self.menu.addAction(self.aboutAction)
-        
+
         self.menu.addSeparator()
         self.quitAction = QtGui.QAction(QtGui.QIcon(":/shutdown.png"), _("Quit"), self)
         self.menu.addAction(self.quitAction)
-
+        print("::")
         self.tray.setContextMenu(self.menu)
         self.tray.show()
 
@@ -141,26 +135,97 @@ class Dialer(formClass, BaseClass):
         sc = QtGui.QAction("Show contacts",self)
         sc.setShortcut(QtGui.QKeySequence("Alt+Up"))
         self.addAction(sc)
-        
+
         hc = QtGui.QAction("Hide contacts",self)
         hc.setShortcut(QtGui.QKeySequence("Alt+Down"))
         self.addAction(hc)
-        
+
         sc.triggered.connect(self.showContacts)
         hc.triggered.connect(self.hideContacts)
-        
+
         self.connect(self.tray, QtCore.SIGNAL("activated(QSystemTrayIcon::ActivationReason)"), self.onTrayClick)
         self.connect(self.quitAction, QtCore.SIGNAL("triggered()"), self.onQuit)
+
         self.connect(self.showAction, QtCore.SIGNAL("triggered()"), self.showHide)
-        self.connect(self.settingsAction, QtCore.SIGNAL("triggered()"), self.settings.show)
+
+        #self.connect(self.settingsAction, QtCore.SIGNAL("triggered()"), self.settings.show)
         self.connect(self.aboutAction, QtCore.SIGNAL("triggered()"), self.showAbout)
-        self.connect(self.settings, QtCore.SIGNAL("accepted()"), self.settings.save)
-        self.connect(self.settings, QtCore.SIGNAL("accepted()"), self.reload)
+        #self.connect(self.settings, QtCore.SIGNAL("accepted()"), self.settings.save)
+        #self.connect(self.settings, QtCore.SIGNAL("accepted()"), self.reload)
         self.connect(self.dialButton, QtCore.SIGNAL("clicked()"), self.makeCall)
         self.connect(self.numberEdit, QtCore.SIGNAL("returnPressed()"), self.makeCall)
         self.connect(self.hangupButton, QtCore.SIGNAL("clicked()"), self.hangup)
         self.connect(self.answerButton, QtCore.SIGNAL("clicked()"), self.answer)
         self.connect(self.rejectButton, QtCore.SIGNAL("clicked()"), self.reject)
+        #login
+        self.connect(self.login_button, QtCore.SIGNAL("clicked()"), self.start_autorization)
+        self.connect(self, QtCore.SIGNAL("auth_ok()"), self.finish_autoristion)
+        self.connect( self, QtCore.SIGNAL("auth_wrong(QString)"), self.login_again)
+        self.connect( self, QtCore.SIGNAL("autorized()"), self.load_controller_async)
+        self.connect( self, QtCore.SIGNAL("controller_loaded()"), self.controller_loaded_success)
+        
+    def login_again(self):
+        self.loader.hide()
+
+    def start_autorization(self):
+        self.loader.setVisible(True)
+        number = self.login_edit.text()
+        password = self.password_edit.text()
+        thread = threading.Thread(target=self.process_autorization,
+                                  args=(number, password))
+        thread.start()
+
+    def process_autorization(self, number, password):
+        if self.phonty.login(number, password):
+
+            if not self.config.has_section("sip"):
+                self.config.add_section("sip")
+            if not self.config.has_section("main"):
+                self.config.add_section("main")
+            if not self.config.has_section("media"):
+                self.config.add_section("media")
+            self.config.set('sip', 'server',  "sip.phonty.com")
+            self.config.set('sip', 'port', "6600")
+            self.config.set('sip', 'login', number)
+            self.config.set('sip', 'password', password)
+
+            debug("Сохраняем конфигурационный файл")
+            f = StringIO()
+            self.config.write(f)
+            saveSettings(f.getvalue())
+            f.close()
+            
+            thread = threading.Thread(target = self.get_balance )
+            thread.start()
+            self.emit( QtCore.SIGNAL('auth_ok()'))
+        else:
+            self.emit( QtCore.SIGNAL('auth_wrong(QString)'), "auth wrong" )
+
+    def finish_autoristion(self):
+        print "i'm stat"
+        self.loader.hide()
+        self.login_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.login_label.setText("Starting. Please wait few seconds")
+        self.login_edit.hide()
+        self.password_label.hide()
+        self.password_edit.hide()
+        self.remember_password_check.hide()
+        self.register_button.hide()
+        self.login_button.hide()
+        QtGui.qApp.processEvents()
+        self.emit( QtCore.SIGNAL('autorized()'))
+
+    def load_controller_async(self):
+        thread = threading.Thread(target = self.load_controller)
+        thread.start()
+
+    def load_controller(self):
+        self.controller = Controller(self)
+        self.emit( QtCore.SIGNAL('controller_loaded()'))
+        
+    def controller_loaded_success(self):
+        self.login_label.hide()
+        self.resize(350, 70)
 
     def showContacts(self):
         self.contactsForm.is_hidden = False
@@ -219,23 +284,23 @@ class Dialer(formClass, BaseClass):
         except:
             version = _("Unknown version")
         about = ( version,
-                 _("QT and PJSIP based minimalistic SIP Client"),
+                 _("Phonty client based on Telesk softphone"),
                  "<a href=\"http://telesk.scat.su/\">http://telesk.scat.su</a>",
                  "Copyright (C) 2010-2012 SKAT Ltd. (<a href=\"http://www.scat.su\">http://www.scat.su</a>)",
                  _("Translations"),
                  "Ukrainian - Maxim Nosovets (nosovetz@yandex.ua), 2012.",
                  _("""This program is free software; you can redistribute it and/or modify
                   it under the terms of the <a href="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html">
-                  GNU General Public License</a> as published by the Free Software Foundation; 
+                  GNU General Public License</a> as published by the Free Software Foundation;
                   either version 2 of the License, or (at your option) any later version."""))
 
-        QtGui.QMessageBox.about(self,_("About"),"""<h1>Telesk %s</h1>
+        QtGui.QMessageBox.about(self,_("About"),"""<h1>Phonty %s</h1>
                                                     <p>%s</p>
                                                     <p>%s</p>
                                                     <p>%s</p>
                                                     <p><b>%s:</b><br/>
                                                     %s</p>
-                                                    <p>%s</p>                                                    
+                                                    <p>%s</p>
                                                     """ % about)
 
     def reload(self):
@@ -249,7 +314,7 @@ class Dialer(formClass, BaseClass):
             self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
 
     def showHide(self):
-        if sys.platform.startswith("win"):
+        """if sys.platform.startswith("win"):
             right = QtGui.QDesktopWidget().availableGeometry().width()-self.frameSize().width()
             bottom = QtGui.QDesktopWidget().availableGeometry().height()-self.frameSize().height()
         else:
@@ -257,7 +322,7 @@ class Dialer(formClass, BaseClass):
             bottom = QtGui.QDesktopWidget().availableGeometry().height()-self.frameSize().height()/2
 
         self.move(right, bottom)
-        self.contactsForm.move(right, bottom-self.contactsForm.frameSize().height())
+        self.contactsForm.move(right, bottom-self.contactsForm.frameSize().height())"""
         state = not self.isVisible()
         self.setVisible(state)
         if not self.contactsForm.is_hidden:
@@ -277,7 +342,6 @@ class Dialer(formClass, BaseClass):
         if number.strip() != "":
             self.controller.make_call(number)
 
-
     def hangup(self):
         self.controller.hangup_call()
         self.numberEdit.show()
@@ -296,7 +360,6 @@ class Dialer(formClass, BaseClass):
             self.dialButton.hide()
             self.hangupButton.show()
 
-
         if state == "CONFIRMED":
             self.seconds = 0
             self.callerIDLabel.setText(self.uri)
@@ -306,7 +369,7 @@ class Dialer(formClass, BaseClass):
             self.show_call()
             self.calls.outgoing(self.uri)
             self.fillHistoryList()
-            
+
         if state == "DISCONNCTD":
             self.setWindowTitle(_("Telesk"))
             self.timerLabel.setText(u"0:00")
@@ -316,17 +379,19 @@ class Dialer(formClass, BaseClass):
                 self.show_error(_("Not found"))
             if code == 486:
                 self.show_error(_("Busy here"))
-            if code == 603:            
+            if code == 603:
                 self.show_error(_("Decline"))
-                
+
             self.errortimer.start()
             self.connect(self.errortimer, QtCore.SIGNAL("timeout()"), self.show_dialer)
+            thread = threading.Thread(target = self.get_balance )
+            thread.start()
 
     @QtCore.pyqtSlot()
     def onRegister(self):
         self.tray.setIcon(self.connectedIcon)
         self.show_dialer()
-        
+
     @QtCore.pyqtSlot()
     def onRegisterFailed(self):
         self.tray.setIcon(self.errorIcon)
@@ -349,7 +414,7 @@ class Dialer(formClass, BaseClass):
         self.controller.reject_call()
         self.show_dialer()
 
-    def show_dialer(self):        
+    def show_dialer(self):
         self.seconds = 0
         self.timer.stop()
         self.errortimer.stop()
@@ -360,6 +425,8 @@ class Dialer(formClass, BaseClass):
         self.callerIDLabel.hide()
         self.timerLabel.hide()
         self.hangupButton.hide()
+        self.direction_cost_label.show()
+        self.balance_label.show()
         self.update()
 
     def show_call(self):
@@ -381,7 +448,7 @@ class Dialer(formClass, BaseClass):
         self.answerButton.show()
         self.rejectButton.show()
         self.update()
-        
+
     def show_error(self,error):
         self.numberEdit.hide()
         self.dialButton.show()
@@ -392,3 +459,14 @@ class Dialer(formClass, BaseClass):
         self.rejectButton.hide()
         self.callerIDLabel.setText(unicode(error))
         self.update()
+
+    def hide_all(self):
+        self.direction_cost_label.hide()
+        self.balance_label.hide()
+        self.numberEdit.hide()
+        self.dialButton.hide()
+        self.callerIDLabel.hide()
+        self.timerLabel.hide()
+        self.hangupButton.hide()
+        self.answerButton.hide()
+        self.rejectButton.hide()

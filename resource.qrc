@@ -5,11 +5,13 @@
         <file alias="stop.png">images/stop.png</file>
         <file alias="shutdown.png">images/shutdown.png</file>
         <file alias="settings.png">images/settings.png</file>
-        <file alias="inactive.png">images/telesk_default_24.png</file>
-        <file alias="error.png">images/telesk_error_24.png</file>
-        <file alias="connected.png">images/telesk_active_24.png</file>
         <file alias="call.png">images/call_.png</file>
         <file alias="hangup.png">images/hangup.png</file>
         <file alias="about.png">images/help-about.png</file>
+        <file alias="loader.gif">forms/loader.gif</file>
+        <file alias="phonty.png">forms/phonty.png</file>
+        <file alias="inactive.png">images/sym_presence_offline.png</file>
+        <file alias="error.png">images/sym_presence_away.png</file>
+        <file alias="connected.png">images/sym_presence_available.png</file>
     </qresource>
 </RCC>

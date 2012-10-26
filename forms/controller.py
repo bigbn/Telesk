@@ -21,7 +21,6 @@ from PyQt4 import QtCore, QtGui
 import threading
 from debug import debug
 
-
 class Controller(object):
     def make_call(self, num):
         if len(num) > 0:
@@ -47,7 +46,7 @@ class Controller(object):
             self.core.answer_call(self.core.calls.current)
         except Exception, e:
             QtGui.QMessageBox.critical(self.form, "Error", str(e))
-    
+
     def reject_call(self):
         try:
             self.core.reject_call(self.core.calls.current)
@@ -66,7 +65,7 @@ class Controller(object):
                 self.core.hold_call(self.core.calls.current)
         except Exception, e:
             QtGui.QMessageBox.critical(self.form, "Error", str(e))
-        
+
 
     #### Callback functions ###
 

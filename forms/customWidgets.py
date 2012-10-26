@@ -16,7 +16,7 @@ from PyQt4.QtCore import Qt
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- 
+
 class ClearLineEdit(QLineEdit):
     def __init__(self,parent=None):
         QLineEdit.__init__(self,parent)
@@ -29,12 +29,12 @@ class ClearLineEdit(QLineEdit):
         self.button.setStyleSheet("border: none;")
         self.textChanged.connect(self.changed)
         self.button.clicked.connect(self.clear)
- 
+
         layout=QVBoxLayout(self)
         layout.addWidget(self.button,0,Qt.AlignRight)
         layout.setSpacing(0)
         layout.setMargin(0)
- 
+
     def changed(self,text):
         if len(text)==0: self.button.hide()
         else: self.button.show()

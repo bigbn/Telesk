@@ -15,27 +15,32 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
+# Foundation, Inc., 59 Temple Place, Suiогоte 330, Boston, MA  02111-1307  USA
 
-import gettext,gettext_windows
-import os,sys
-import os, logging
-from PyQt4 import QtCore, QtGui
+import gettext
+import gettext_windows
+import sys
+import os
+from PyQt4 import QtGui
 from debug import debug
+#from forms.login import LoginForm
 
 VERSION = "0.1.0"
-from forms.dialer import Dialer
 
+from forms.dialer import Dialer
 def main():
     if sys.platform.startswith("win"):
         gettext_windows.setup_env()
-        
-    lang_path = os.path.dirname(os.path.abspath(sys.argv[0]))+'/locale'
+
+    lang_path = os.path.dirname(os.path.abspath(sys.argv[0])) + '/locale'
     debug("Lang path: %s" % lang_path)
     gettext.install('telesk', lang_path, unicode=True)
     app = QtGui.QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
-    wnd = Dialer()
+    d = Dialer()
+    d.show()
+    #w = LoginForm()
+    #w.show()
     rc = app.exec_()
     sys.exit(rc)
 

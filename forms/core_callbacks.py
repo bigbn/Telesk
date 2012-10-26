@@ -26,7 +26,7 @@ class core_cb(object):
             * buddystate: It's called when a buddy's state is changed.
             * hangup: It's called when a call is hung up.
     """
-    
+
     def set_cb_regstate(self, func):
         self._regstate = func
 
@@ -61,7 +61,7 @@ class core_cb(object):
     def mediastate(self, *args, **kwargs):
         if hasattr(self, "_mediastate") and callable(self._medistate):
             self._medistate(*args, **kwargs)
-    
+
     def set_cb_buddystate(self, func):
        self._buddystate = func
 

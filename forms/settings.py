@@ -37,7 +37,7 @@ class SettingsForm(formClass, BaseClass):
     def __init__(self,  parent=None):
         super(SettingsForm, self).__init__(parent)
         self.setupUi(self)
-    
+
     def load(self, checkpass = True):
         reset_config()
         try:
@@ -59,7 +59,7 @@ class SettingsForm(formClass, BaseClass):
             self.show()
             return False
         return True
-                
+
     def save(self):
         if not config.has_section("sip"):
             config.add_section("sip")
