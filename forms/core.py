@@ -26,8 +26,10 @@ if platform.machine() == "i686":
 elif platform.machine() == "x86_64":
     import pjsua.x86_64.pjsua as pj
 elif platform.machine() == "x86":
-    import pjsua.x86_win.pjsua as pj	
-	
+    import pjsua.x86_win.pjsua as pj
+elif platform.machine() == "darwin":
+    import pjsua.i386_osx.pjsua as pj
+
 import sys
 import threading
 from debug import debug
@@ -134,9 +136,6 @@ class Core(object):
         def _start_acc(self):
             from callback.acc_cb import acc_cb
             try:
-                print unicode(self.config.get("sip", "server"))
-                print self.config.get("sip", "login")
-                print self.config.get("sip", "password")
                 self.proxy = socket.gethostbyname(unicode(self.config.get("sip", "server")))
                 self.acc = self.lib.create_account(acc_config=pj.AccountConfig(self.proxy, self.config.get("sip", "login"),self.config.get("sip", "password")), cb=acc_cb())
             except pj.Error:

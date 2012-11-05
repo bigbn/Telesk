@@ -33,7 +33,7 @@ class Ui_DialWindow(object):
         DialWindow.resize(350, 70)
         self.setMaximumWidth(350)
         self.setMaximumHeight(70)
-        self.setWindowIcon(QtGui.QIcon('images/telesk.png'))
+        self.setWindowIcon(QtGui.QIcon('images/phonty_mini.png'))
         self.baseLayout = QtGui.QVBoxLayout(DialWindow)
         self.top_spacer = QtGui.QSpacerItem(40,
                                         50,
@@ -202,7 +202,7 @@ class Ui_DialWindow(object):
         self.direction_cost_label.setText("%s - %s: %s per minute" % (price["country"], price["provider"], price["amount"]))
 
     def retranslateUi(self, DialWindow):
-        DialWindow.setWindowTitle(QtGui.QApplication.translate("DialWindow", "Telesk", None, QtGui.QApplication.UnicodeUTF8))
+        DialWindow.setWindowTitle(QtGui.QApplication.translate("DialWindow", "Phonty", None, QtGui.QApplication.UnicodeUTF8))
         self.dialButton.setText(QtGui.QApplication.translate("DialWindow", "...", None, QtGui.QApplication.UnicodeUTF8))
         self.answerButton.setText(QtGui.QApplication.translate("CallInDialog",_("Answer"), None, QtGui.QApplication.UnicodeUTF8))
         self.rejectButton.setText(QtGui.QApplication.translate("CallInDialog",_("Reject"), None, QtGui.QApplication.UnicodeUTF8))

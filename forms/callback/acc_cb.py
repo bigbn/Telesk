@@ -22,7 +22,9 @@ if platform.machine() == "i686":
 elif platform.machine() == "x86_64":
     import pjsua.x86_64.pjsua as pj
 elif platform.machine() == "x86":
-    import pjsua.x86_win.pjsua as pj	
+    import pjsua.x86_win.pjsua as pj
+elif platform.machine() == "darwin":
+    import pjsua.i386_osx.pjsua as pj
 
 import os
 from forms.core import Core

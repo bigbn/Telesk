@@ -36,6 +36,17 @@ from contactsitem import Contact
 from database.history import HistoryAdapter
 from database.contacts import ContactsAdapter
 import threading
+import platform
+#import py_pjsua
+
+if platform.machine() == "i686":
+    import pjsua.i686.pjsua as pj
+elif platform.machine() == "x86_64":
+    import pjsua.x86_64.pjsua as pj
+elif platform.machine() == "x86":
+    import pjsua.x86_win.pjsua as pj
+elif platform.machine() == "darwin":
+    import pjsua.i386_osx.pjsua as pj
 
 class Dialer(formClass, BaseClass):
     def __init__(self,  parent=None):
@@ -55,6 +66,7 @@ class Dialer(formClass, BaseClass):
                               QDialog {background: white url(:/phonty.png) no-repeat top left; color: rgb(0,0,0); border-style: outset; border-width: 1px;
                                          border-color: rgb(200,200,200);
 }
+                              QMessageBox {background: white }
                               QLabel {color: rgb(0,0,0);}
                               QLineEdit {color: rgb(30,30,30); background-color: rgb(255,255,255); border-style: inset; border-width: 1px;
                                          border-color: rgb(180,180,180); }""")
@@ -126,7 +138,6 @@ class Dialer(formClass, BaseClass):
         self.menu.addSeparator()
         self.quitAction = QtGui.QAction(QtGui.QIcon(":/shutdown.png"), _("Quit"), self)
         self.menu.addAction(self.quitAction)
-        print("::")
         self.tray.setContextMenu(self.menu)
         self.tray.show()
 
@@ -215,11 +226,12 @@ class Dialer(formClass, BaseClass):
         QtGui.qApp.processEvents()
         self.emit( QtCore.SIGNAL('autorized()'))
 
-    def load_controller_async(self):
-        thread = threading.Thread(target = self.load_controller)
-        thread.start()
+    #def load_controller_async(self):
+    #    thread = threading.Thread(target = self.load_controller)
+    #    thread.start()
 
-    def load_controller(self):
+    def load_controller_async(self):
+        #py_pjsua.thread_register("main",0)
         self.controller = Controller(self)
         self.emit( QtCore.SIGNAL('controller_loaded()'))
         
@@ -287,6 +299,7 @@ class Dialer(formClass, BaseClass):
                  _("Phonty client based on Telesk softphone"),
                  "<a href=\"http://telesk.scat.su/\">http://telesk.scat.su</a>",
                  "Copyright (C) 2010-2012 SKAT Ltd. (<a href=\"http://www.scat.su\">http://www.scat.su</a>)",
+                 "Copyright (C) 2012 Phontycom Ltd. (<a href=\"http://phonty.com\">http://phonty.com</a>)",
                  _("Translations"),
                  "Ukrainian - Maxim Nosovets (nosovetz@yandex.ua), 2012.",
                  _("""This program is free software; you can redistribute it and/or modify
@@ -295,6 +308,7 @@ class Dialer(formClass, BaseClass):
                   either version 2 of the License, or (at your option) any later version."""))
 
         QtGui.QMessageBox.about(self,_("About"),"""<h1>Phonty %s</h1>
+                                                    <p>%s</p>
                                                     <p>%s</p>
                                                     <p>%s</p>
                                                     <p>%s</p>
