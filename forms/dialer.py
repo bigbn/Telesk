@@ -37,6 +37,7 @@ from database.history import HistoryAdapter
 from database.contacts import ContactsAdapter
 import threading
 import platform
+import webbrowser
 #import py_pjsua
 
 if platform.machine() == "i686":
@@ -156,7 +157,8 @@ class Dialer(formClass, BaseClass):
 
         self.connect(self.tray, QtCore.SIGNAL("activated(QSystemTrayIcon::ActivationReason)"), self.onTrayClick)
         self.connect(self.quitAction, QtCore.SIGNAL("triggered()"), self.onQuit)
-
+        self.connect(self, QtCore.SIGNAL('rejected()'), self.onQuit)
+        
         self.connect(self.showAction, QtCore.SIGNAL("triggered()"), self.showHide)
 
         #self.connect(self.settingsAction, QtCore.SIGNAL("triggered()"), self.settings.show)
@@ -167,19 +169,27 @@ class Dialer(formClass, BaseClass):
         self.connect(self.numberEdit, QtCore.SIGNAL("returnPressed()"), self.makeCall)
         self.connect(self.hangupButton, QtCore.SIGNAL("clicked()"), self.hangup)
         self.connect(self.answerButton, QtCore.SIGNAL("clicked()"), self.answer)
-        self.connect(self.rejectButton, QtCore.SIGNAL("clicked()"), self.reject)
+        self.connect(self.rejectButton, QtCore.SIGNAL("clicked()"), self.reject_call)
         #login
         self.connect(self.login_button, QtCore.SIGNAL("clicked()"), self.start_autorization)
+        
+        self.connect(self.register_button, QtCore.SIGNAL("clicked()"), self.open_registration)
+
         self.connect(self, QtCore.SIGNAL("auth_ok()"), self.finish_autoristion)
         self.connect( self, QtCore.SIGNAL("auth_wrong(QString)"), self.login_again)
         self.connect( self, QtCore.SIGNAL("autorized()"), self.load_controller_async)
         self.connect( self, QtCore.SIGNAL("controller_loaded()"), self.controller_loaded_success)
+
+    def open_registration(self):
+        webbrowser.open(_('https://phonty.com/#register'))
         
     def login_again(self):
-        self.loader.hide()
+        self.loader.setVisible(False)
+        self.result_label.setVisible(True)
 
     def start_autorization(self):
         self.loader.setVisible(True)
+        self.result_label.setVisible(False)
         number = self.login_edit.text()
         password = self.password_edit.text()
         thread = threading.Thread(target=self.process_autorization,
@@ -238,6 +248,8 @@ class Dialer(formClass, BaseClass):
     def controller_loaded_success(self):
         self.login_label.hide()
         self.resize(350, 70)
+        self.top_spacer.changeSize(40,50)
+        self.loader_spacer.changeSize(0,0)
 
     def showContacts(self):
         self.contactsForm.is_hidden = False
@@ -424,9 +436,12 @@ class Dialer(formClass, BaseClass):
         self.controller.answer_call()
         self.show_call()
 
-    def reject(self):
-        self.controller.reject_call()
-        self.show_dialer()
+    def reject_call(self):
+        try:
+            self.controller.reject_call()
+            self.show_dialer()
+        except:
+            debug("Reject error")
 
     def show_dialer(self):
         self.seconds = 0

@@ -35,8 +35,8 @@ class Ui_DialWindow(object):
         self.setMaximumHeight(70)
         self.setWindowIcon(QtGui.QIcon('images/phonty_mini.png'))
         self.baseLayout = QtGui.QVBoxLayout(DialWindow)
-        self.top_spacer = QtGui.QSpacerItem(40,
-                                        50,
+        self.top_spacer = QtGui.QSpacerItem(0,
+                                        0,
                                         QtGui.QSizePolicy.Expanding,
                                         QtGui.QSizePolicy.Minimum)
         self.baseLayout.addItem(self.top_spacer)
@@ -45,7 +45,7 @@ class Ui_DialWindow(object):
 
         #phonty items
         self.balance_label = QtGui.QLabel(self)
-        self.balance_label.setText(u"Your balance is 0.0 USD")
+        self.balance_label.setText(_("Waiting for balance info"))
         self.baseLayout.addWidget(self.balance_label)
 
         # call process
@@ -57,7 +57,7 @@ class Ui_DialWindow(object):
         self.callerIDLabel.setSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Maximum)
         self.callerIDLabel.setFont(font)
         self.callerIDLabel.setObjectName(_fromUtf8("callerIDLabel"))
-        self.callerIDLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.callerIDLabel.setAlignment(QtCore.Qt.AlignLeft)
         font = QtGui.QFont()
         font.setPointSize(12)
         self.seconds = 0
@@ -67,7 +67,7 @@ class Ui_DialWindow(object):
 
         self.timerLabel = QtGui.QLabel(self)
         self.timerLabel.setText(u"0:00")
-        self.timerLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.timerLabel.setAlignment(QtCore.Qt.AlignLeft)
         self.processLayout.addWidget(self.callerIDLabel)
         self.processLayout.addWidget(self.timerLabel)
 
@@ -143,9 +143,16 @@ class Ui_DialWindow(object):
         self.numberEdit.textChanged.connect(self.async_direction_cost)
         
         #login
+        
         self.v_base_lay = self.baseLayout
         self.h_main_lay = QtGui.QHBoxLayout()
 
+        self.loader_spacer = QtGui.QSpacerItem(50,
+                                        50,
+                                        QtGui.QSizePolicy.Minimum,
+                                        QtGui.QSizePolicy.Minimum)
+        
+        self.h_loader_lay = QtGui.QHBoxLayout()
         movie = QtGui.QMovie(":/loader.gif")
         self.loader = QtGui.QLabel()
         self.loader.setMovie(movie)
@@ -153,9 +160,21 @@ class Ui_DialWindow(object):
         self.loader.setVisible(False)
         movie.start()
 
+        self.result_label = QtGui.QLabel()
+        self.result_label.setText(_("Wrong auth"))
+        self.loader.setStyleSheet("padding: 5px")
+        
+        self.result_label.setVisible(False)
+        
         self.loader.setAlignment(QtCore.Qt.AlignRight)
+        self.result_label.setAlignment(QtCore.Qt.AlignRight)
+        
+        self.h_loader_lay.addItem(self.loader_spacer)
+        self.h_loader_lay.addWidget(self.result_label)
+        self.h_loader_lay.addWidget(self.loader)
 
-        self.v_base_lay.addWidget(self.loader)
+        
+        self.v_base_lay.addLayout(self.h_loader_lay)
 
         self.v_base_lay.addLayout(self.h_main_lay)
 
@@ -163,31 +182,31 @@ class Ui_DialWindow(object):
         self.h_main_lay.addLayout(self.v_account_lay)
 
         self.login_label = QtGui.QLabel()
-        self.login_label.setText("Login")
+        self.login_label.setText(_("Username"))
         self.v_account_lay.addWidget(self.login_label)
         self.login_edit = ClearLineEdit()
         self.v_account_lay.addWidget(self.login_edit)
 
         self.password_label = QtGui.QLabel()
-        self.password_label.setText("Password")
+        self.password_label.setText(_("Password"))
         self.v_account_lay.addWidget(self.password_label)
         self.password_edit = QtGui.QLineEdit()
         self.password_edit.setEchoMode(QtGui.QLineEdit.Password)
         self.v_account_lay.addWidget(self.password_edit)
 
         self.remember_password_check = QtGui.QCheckBox()
-        self.remember_password_check.setText("Remember password")
+        self.remember_password_check.setText(_("Remember password"))
         self.v_account_lay.addWidget(self.remember_password_check)
 
         self.h_buttons_lay = QtGui.QHBoxLayout()
         self.v_base_lay.addLayout(self.h_buttons_lay)
 
         self.register_button = QtGui.QPushButton()
-        self.register_button.setText("Sign Up")
+        self.register_button.setText(_("Sign Up"))
         self.h_buttons_lay.addWidget(self.register_button)
 
         self.login_button = QtGui.QPushButton()
-        self.login_button.setText("Sign In")
+        self.login_button.setText(("Sign In"))
         self.h_buttons_lay.addWidget(self.login_button)
 
     def get_balance(self):
@@ -199,7 +218,7 @@ class Ui_DialWindow(object):
 
     def get_direction_cost(self,number):
         price = self.phonty.direction_cost(number,"EN")
-        self.direction_cost_label.setText("%s - %s: %s per minute" % (price["country"], price["provider"], price["amount"]))
+        self.direction_cost_label.setText("%s - %s: %s %s" % (price["country"], price["provider"], price["amount"], _("per minute")))
 
     def retranslateUi(self, DialWindow):
         DialWindow.setWindowTitle(QtGui.QApplication.translate("DialWindow", "Phonty", None, QtGui.QApplication.UnicodeUTF8))
