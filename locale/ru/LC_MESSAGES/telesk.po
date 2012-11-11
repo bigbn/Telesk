@@ -2,15 +2,15 @@
 # Английские переводы для пакета PACKAGE.
 # Copyright (C) 2012 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# bigbn <bigbn@mail.ru>, 2012.
+# Павел Ильич <bigbn@bigbn-pc>, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-24 14:08+0400\n"
-"PO-Revision-Date: 2012-07-24 14:08+0400\n"
-"Last-Translator: bigbn <bigbn@mail.ru>\n"
+"POT-Creation-Date: 2012-11-11 19:42+0400\n"
+"PO-Revision-Date: 2012-11-11 19:42+0400\n"
+"Last-Translator: Павел Ильич <bigbn@bigbn-pc>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -19,139 +19,145 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: forms/ui_settings.py:124 forms/dialer.py:99
+#: forms/ui_settings.py:124 forms/dialer.py:99 forms/ui_settings.py:133
+#: forms/dialer.py:116
 msgid "Settings"
 msgstr "Параметры"
 
-#: forms/ui_settings.py:125
+#: forms/ui_settings.py:125 forms/ui_settings.py:134
 msgid "SIP Server"
 msgstr "SIP-сервер"
 
-#: forms/ui_settings.py:126
+#: forms/ui_settings.py:126 forms/ui_settings.py:135
 msgid "Port"
 msgstr "Порт"
 
-#: forms/ui_settings.py:128
+#: forms/ui_settings.py:128 forms/ui_settings.py:137
+#: forms/ui_dialDialog.py:186 forms/ui_login.py:46
 msgid "Username"
 msgstr "Имя пользователя"
 
-#: forms/ui_settings.py:129
+#: forms/ui_settings.py:129 forms/ui_settings.py:138
+#: forms/ui_dialDialog.py:192 forms/ui_login.py:52
 msgid "Password"
 msgstr "Пароль"
 
-#: forms/ui_settings.py:130
+#: forms/ui_settings.py:130 forms/ui_settings.py:139
 msgid "SIP"
 msgstr "SIP"
 
-#: forms/ui_settings.py:131
+#: forms/ui_settings.py:131 forms/ui_settings.py:140
 msgid "Auto answer"
 msgstr "Автоответ"
 
-#: forms/ui_settings.py:132
+#: forms/ui_settings.py:132 forms/ui_settings.py:141
 msgid "Always on top"
-msgstr "Поверх всех окон"
+msgstr "Всегда наверху"
 
-#: forms/ui_settings.py:133
+#: forms/ui_settings.py:133 forms/ui_settings.py:142
 msgid "Use the system theme (restart needed)"
 msgstr "Использовать системную тему"
 
-#: forms/ui_settings.py:134
+#: forms/ui_settings.py:134 forms/ui_settings.py:143
 msgid "Interface"
 msgstr "Интерфейс"
 
-#: forms/ui_settings.py:135
+#: forms/ui_settings.py:135 forms/ui_settings.py:144
 msgid "Capture device"
-msgstr "Устройство захвата"
+msgstr ""
 
-#: forms/ui_settings.py:136
+#: forms/ui_settings.py:136 forms/ui_settings.py:145
 msgid "Output device"
-msgstr "Устройство воспроизведения"
+msgstr ""
 
-#: forms/ui_settings.py:137
+#: forms/ui_settings.py:137 forms/ui_settings.py:146
 msgid "Sound"
-msgstr "Звук"
+msgstr ""
 
-#: forms/ui_settings.py:138
+#: forms/ui_settings.py:138 forms/ui_settings.py:147
 msgid "Cancel"
 msgstr "Отмена"
 
-#: forms/ui_settings.py:139
+#: forms/ui_settings.py:139 forms/ui_settings.py:148
 msgid "OK"
 msgstr "ОК"
 
-#: forms/dialer.py:87
+#: forms/dialer.py:87 forms/dialer.py:97
 msgid "Audio-device error"
-msgstr "Ошибка инициализации аудио устройств"
+msgstr "Ошибк иницализации аудио устройств"
 
-#: forms/dialer.py:97
+#: forms/dialer.py:97 forms/dialer.py:114 forms/dialer.py:121
 msgid "Activate"
 msgstr "Активировать"
 
-#: forms/dialer.py:102
+#: forms/dialer.py:102 forms/dialer.py:123 forms/dialer.py:131
 msgid "Quit"
 msgstr "Выход"
 
-#: forms/dialer.py:146
+#: forms/dialer.py:146 forms/dialer.py:198 forms/dialer.py:341
 msgid "Exiting"
 msgstr "Завершение"
 
-#: forms/dialer.py:170
+#: forms/dialer.py:170 forms/dialer.py:222 forms/dialer.py:364
 msgid "Calling..."
-msgstr "Звоним..."
+msgstr "Вызываем..."
 
 #: forms/dialer.py:173
 msgid "Calling"
-msgstr "Звоним"
+msgstr "Вызов"
 
-#: forms/dialer.py:178
+#: forms/dialer.py:178 forms/dialer.py:231 forms/dialer.py:372
 msgid "Call in process"
-msgstr "Разговор"
+msgstr "На связи"
 
-#: forms/dialer.py:184
+#: forms/dialer.py:184 forms/dialer.py:236 forms/dialer.py:379
 msgid "Telesk"
-msgstr "Telesk"
+msgstr ""
 
-#: forms/dialer.py:187
+#: forms/dialer.py:187 forms/dialer.py:239 forms/dialer.py:382
 msgid "Not available"
-msgstr "Абонент недоступен"
+msgstr "Абонент не доступен"
 
-#: forms/dialer.py:189
+#: forms/dialer.py:189 forms/dialer.py:241 forms/dialer.py:384
 msgid "Not found"
 msgstr "Абонент не найден"
 
-#: forms/dialer.py:191
+#: forms/dialer.py:191 forms/dialer.py:243 forms/dialer.py:386
 msgid "Busy here"
 msgstr "Занято"
 
-#: forms/dialer.py:193
+#: forms/dialer.py:193 forms/dialer.py:245 forms/dialer.py:388
 msgid "Decline"
-msgstr "Звонок завершен"
+msgstr "Завершение"
 
-#: forms/dialer.py:206
+#: forms/dialer.py:206 forms/dialer.py:258 forms/dialer.py:403
 msgid "SIP registration failed"
-msgstr "Регистрация не удалась"
+msgstr "Не удалось зарегистрироваться"
 
-#: forms/ui_dialDialog.py:118
+#: forms/ui_dialDialog.py:118 forms/ui_dialDialog.py:128
+#: forms/ui_dialDialog.py:232
 msgid "Answer"
 msgstr "Ответить"
 
-#: forms/ui_dialDialog.py:119
+#: forms/ui_dialDialog.py:119 forms/ui_dialDialog.py:129
+#: forms/ui_dialDialog.py:233
 msgid "Reject"
-msgstr "Отклонить"
+msgstr "Сбросить"
 
-#: forms/dialer.py:119 forms/dialer.py:164
+#: forms/dialer.py:119 forms/dialer.py:164 forms/dialer.py:124
+#: forms/dialer.py:310
 msgid "About"
 msgstr "О программе"
 
-#: forms/dialer.py:152
+#: forms/dialer.py:152 forms/dialer.py:297
 msgid "Unknown version"
 msgstr "Неизвестная версия"
 
 #: forms/dialer.py:154
 msgid "QT and PJSIP based minimalistic SIP Client"
-msgstr "Минималистичный SIP софтфон базирующийся на PJSIP и QT"
+msgstr "Минималистичный софтфон"
 
-#: forms/dialer.py:157
+#: forms/dialer.py:157 forms/dialer.py:303
 msgid "Translations"
 msgstr "Переводы"
 
@@ -164,7 +170,89 @@ msgid ""
 "Software Foundation; \n"
 "                  either version 2 of the License, or (at your option) any "
 "later version."
+msgstr ""
 
+#: forms/ui_dialDialog.py:49
+msgid "Waiting for balance info"
+msgstr "Ожидание баланса"
+
+#: forms/ui_dialDialog.py:165
+msgid "Can't login"
+msgstr "Войти не удалось"
+
+#: forms/ui_dialDialog.py:199 forms/ui_login.py:58
+msgid "Remember password"
+msgstr "Хранить пароль"
+
+#: forms/ui_dialDialog.py:206 forms/ui_login.py:65
+msgid "Sign Up"
+msgstr "Регистрироваться"
+
+#: forms/ui_dialDialog.py:215
+msgid "Your balance is "
+msgstr "Ваш баланс "
+
+#: forms/ui_dialDialog.py:225
+msgid "per minute"
+msgstr "за минуту"
+
+#: forms/ui_login.py:17
+msgid "Phonty"
+msgstr ""
+
+#: forms/ui_login.py:69
+msgid "Sign In"
+msgstr "Войти"
+
+#: forms/ui_contacts.py:67
+msgid "Contacs"
+msgstr "Контакты"
+
+#: forms/ui_contacts.py:68
+msgid "Calls"
+msgstr "Вызовы"
+
+#: forms/dialer.py:127
+msgid "Check for updates"
+msgstr "Проверить обновления"
+
+#: forms/dialer.py:143
+msgid "New version available"
+msgstr "Доступна новая версия"
+
+#: forms/dialer.py:145
+msgid "Available version"
+msgstr "Досупная версия"
+
+#: forms/dialer.py:145
+msgid "https://phonty.com/apps/"
+msgstr "http://phonty.ru/apps/"
+
+#: forms/dialer.py:145
+msgid "Click here to download"
+msgstr "Щелкните для загрузки"
+
+#: forms/dialer.py:147
+msgid "No updates available"
+msgstr "Обновления отсутствуют"
+
+#: forms/dialer.py:147
+msgid "You have the latest version"
+msgstr "У вас уже установлена последняя версия"
+
+#: forms/dialer.py:299
+msgid "Phonty client based on Telesk softphone"
+msgstr "Базирующееся на софтфоне Telesk приложение для международного оператора Phonty."
+
+#: forms/dialer.py:305
+msgid ""
+"This program is free software; you can redistribute it and/or modify\n"
+"                  it under the terms of the <a href=\"http://www.gnu.org/"
+"licenses/old-licenses/gpl-2.0.html\">\n"
+"                  GNU General Public License</a> as published by the Free "
+"Software Foundation;\n"
+"                  either version 2 of the License, or (at your option) any "
+"later version."
 msgstr ""
 "Эта программа свободна; вы можете перераспространять и/или изменять ее на "
 "условиях <a href=\"http://www.gnu.org/"

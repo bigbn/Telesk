@@ -3,7 +3,7 @@ Phonty
 
 Application for international VOIP service Phonty
 
-![Screenshot](https://github.com/bigbn/Telesk/raw/master/screenshot.png)
+![Screenshot](https://raw.github.com/bigbn/Telesk/phonty/screenshot.png)
 
 
 Downloads:

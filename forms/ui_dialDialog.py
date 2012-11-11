@@ -207,7 +207,7 @@ class Ui_DialWindow(object):
         self.h_buttons_lay.addWidget(self.register_button)
 
         self.login_button = QtGui.QPushButton()
-        self.login_button.setText(("Sign In"))
+        self.login_button.setText(_("Sign In"))
         self.h_buttons_lay.addWidget(self.login_button)
 
     def get_balance(self):
