@@ -72,7 +72,6 @@ class Dialer(formClass, BaseClass):
                               QLineEdit {color: rgb(30,30,30); background-color: rgb(255,255,255); border-style: inset; border-width: 1px;
                                          border-color: rgb(180,180,180); }""")
 
-        self.contactsForm = ContactsForm()
         self.numberEdit.button.setStyleSheet("background: transparent; border: none; margin-right: 5px")
         self.notify = NotifyManager()
         self.inactiveIcon = QtGui.QIcon(":/inactive.png")
@@ -82,37 +81,27 @@ class Dialer(formClass, BaseClass):
         self.dialIcon = QtGui.QIcon(":/call.png")
         self.hangupIcon = QtGui.QIcon(":/stop.png")
         self.settings = SettingsForm()
-        #self.controller = Controller(self)
-        #self.login = LoginForm()
-        #self.login.start()
-        #self.settings.load()
+ 
         self.createTrayIcon()
         self.connectSignals()
 
         self.server = None
         self.login = None
         self.password = None
-
-        self.calls = HistoryAdapter()
-        self.contacts = ContactsAdapter()
+ 
         try:
             self.server = self.config.get("sip", "server")
             self.login = self.config.get("sip", "login")
+            self.login_edit.setText(self.login)
             self.password = self.config.get("sip", "password")
+            debug(self.config.get("sip", "store"))
+            if  self.config.get("sip", "store") == "True":
+                self.password_edit.setText(self.password)
+                self.remember_password_check.setCheckState(QtCore.Qt.Checked)
         except:
-            pass
+            debug("Cant get account info")
+            
         self.hide_all()
-
-        #for sd in self.controller.core.lib.enum_snd_dev():
-        #    self.settings.inputComboBox.addItem(self.trans(sd.name))
-        #    self.settings.outputComboBox.addItem(self.trans(sd.name))
-        #self.settings.load()
-        #self.show()
-        #import pdb; pdb.set_trace()
-        #try:
-        #    self.controller.core.lib.set_snd_dev(self.settings.inputComboBox.currentIndex(), self.settings.outputComboBox.currentIndex())
-        #except:
-        #    debug(_("Audio-device error"))
 
     def trans(self,string):
         if not sys.platform.startswith("win"):
@@ -130,8 +119,6 @@ class Dialer(formClass, BaseClass):
         self.menu =QtGui.QMenu(self)
         self.showAction = QtGui.QAction(_("Activate"), self)
         self.menu.addAction(self.showAction)
-        #self.settingsAction = QtGui.QAction(QtGui.QIcon(":/settings.png"), _("Settings"), self)
-        #self.menu.addAction(self.settingsAction)
 
         self.aboutAction = QtGui.QAction(QtGui.QIcon(":/about.png"), _("About"), self)
         self.menu.addAction(self.aboutAction)
@@ -151,20 +138,14 @@ class Dialer(formClass, BaseClass):
         hc = QtGui.QAction("Hide contacts",self)
         hc.setShortcut(QtGui.QKeySequence("Alt+Down"))
         self.addAction(hc)
-
-        sc.triggered.connect(self.showContacts)
-        hc.triggered.connect(self.hideContacts)
-
+ 
         self.connect(self.tray, QtCore.SIGNAL("activated(QSystemTrayIcon::ActivationReason)"), self.onTrayClick)
         self.connect(self.quitAction, QtCore.SIGNAL("triggered()"), self.onQuit)
         self.connect(self, QtCore.SIGNAL('rejected()'), self.onQuit)
         
         self.connect(self.showAction, QtCore.SIGNAL("triggered()"), self.showHide)
 
-        #self.connect(self.settingsAction, QtCore.SIGNAL("triggered()"), self.settings.show)
         self.connect(self.aboutAction, QtCore.SIGNAL("triggered()"), self.showAbout)
-        #self.connect(self.settings, QtCore.SIGNAL("accepted()"), self.settings.save)
-        #self.connect(self.settings, QtCore.SIGNAL("accepted()"), self.reload)
         self.connect(self.dialButton, QtCore.SIGNAL("clicked()"), self.makeCall)
         self.connect(self.numberEdit, QtCore.SIGNAL("returnPressed()"), self.makeCall)
         self.connect(self.hangupButton, QtCore.SIGNAL("clicked()"), self.hangup)
@@ -190,8 +171,8 @@ class Dialer(formClass, BaseClass):
     def start_autorization(self):
         self.loader.setVisible(True)
         self.result_label.setVisible(False)
-        number = self.login_edit.text()
-        password = self.password_edit.text()
+        number = unicode(self.login_edit.text())
+        password = unicode(self.password_edit.text())
         thread = threading.Thread(target=self.process_autorization,
                                   args=(number, password))
         thread.start()
@@ -209,7 +190,10 @@ class Dialer(formClass, BaseClass):
             self.config.set('sip', 'port', "6600")
             self.config.set('sip', 'login', number)
             self.config.set('sip', 'password', password)
-
+            if self.remember_password_check.checkState():
+                self.config.set('sip', 'store', True)
+            else:
+                self.config.set('sip', 'store', False)
             debug("Сохраняем конфигурационный файл")
             f = StringIO()
             self.config.write(f)
@@ -241,7 +225,6 @@ class Dialer(formClass, BaseClass):
     #    thread.start()
 
     def load_controller_async(self):
-        #py_pjsua.thread_register("main",0)
         self.controller = Controller(self)
         self.emit( QtCore.SIGNAL('controller_loaded()'))
         
@@ -252,17 +235,6 @@ class Dialer(formClass, BaseClass):
         self.loader_spacer.changeSize(0,0)
 
     def showContacts(self):
-        self.contactsForm.is_hidden = False
-        self.contactsForm.show()
-        if sys.platform.startswith("win"):
-            right = QtGui.QDesktopWidget().availableGeometry().width()-self.frameSize().width()
-            bottom = QtGui.QDesktopWidget().availableGeometry().height()-self.frameSize().height()-self.contactsForm.frameSize().height()
-        else:
-            right = QtGui.QDesktopWidget().availableGeometry().width()-self.frameSize().width()/2
-            bottom = QtGui.QDesktopWidget().availableGeometry().height()-self.frameSize().height()/2-self.contactsForm.frameSize().height()
-        self.contactsForm.move(right, bottom)
-
-        #FIXME Такой подход не оптимален
         self.fillHistoryList()
         self.fillContactsList()
 
@@ -340,15 +312,6 @@ class Dialer(formClass, BaseClass):
             self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
 
     def showHide(self):
-        """if sys.platform.startswith("win"):
-            right = QtGui.QDesktopWidget().availableGeometry().width()-self.frameSize().width()
-            bottom = QtGui.QDesktopWidget().availableGeometry().height()-self.frameSize().height()
-        else:
-            right = QtGui.QDesktopWidget().availableGeometry().width()-self.frameSize().width()/2
-            bottom = QtGui.QDesktopWidget().availableGeometry().height()-self.frameSize().height()/2
-
-        self.move(right, bottom)
-        self.contactsForm.move(right, bottom-self.contactsForm.frameSize().height())"""
         state = not self.isVisible()
         self.setVisible(state)
         if not self.contactsForm.is_hidden:
@@ -393,8 +356,8 @@ class Dialer(formClass, BaseClass):
             self.setWindowTitle(_("Call in process"))
             self.startTimer()
             self.show_call()
-            self.calls.outgoing(self.uri)
-            self.fillHistoryList()
+            #self.calls.outgoing(self.uri)
+            #self.fillHistoryList()
 
         if state == "DISCONNCTD":
             self.setWindowTitle(_("Telesk"))

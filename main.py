@@ -34,7 +34,11 @@ def main():
 
     lang_path = os.path.dirname(os.path.abspath(sys.argv[0])) + '/locale'
     debug("Lang path: %s" % lang_path)
+    
     gettext.install('telesk', lang_path, unicode=True)
+    lang, charset = gettext.locale.getdefaultlocale()
+    debug("Locale: %s" % lang)
+    
     app = QtGui.QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
     d = Dialer()

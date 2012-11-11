@@ -1,8 +1,11 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import cookielib
 import urllib
 import urllib2
 import simplejson as json
+from debug import debug
 
 class Phonty():
     opener = urllib2.build_opener(
@@ -16,9 +19,12 @@ class Phonty():
 
     def login(self, login, password):
         url = self.url + "login/"
-        data = urllib.urlencode(
+        try:
+            data = urllib.urlencode(
                                 {'username': str(login),
                                  'password': str(password)})
+        except:
+            data = None
         request = urllib2.Request(url, data)
         response = self.send(request)
         if response == "AUTH_OK":
@@ -27,9 +33,10 @@ class Phonty():
             self.error = response
             return False
 
-    def balance(self):
+    def balance(self,locale ="US"):
         url = self.url + "balance/"
-        request = urllib2.Request(url)
+        data = urllib.urlencode({'locale': locale})
+        request = urllib2.Request(url,data)
         try:
             response = json.loads(self.send(request))["balance"]
         except KeyError,e:

@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+import gettext
 import threading
 from japi.japi import Phonty
 from PyQt4 import QtCore, QtGui
@@ -24,6 +24,7 @@ try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
     _fromUtf8 = lambda s: s
+from debug import debug
 
 class Ui_DialWindow(object):
     def setupUi(self, DialWindow):
@@ -161,8 +162,8 @@ class Ui_DialWindow(object):
         movie.start()
 
         self.result_label = QtGui.QLabel()
-        self.result_label.setText(_("Wrong auth"))
-        self.loader.setStyleSheet("padding: 5px")
+        self.result_label.setText(_("Can't login"))
+        self.result_label.setStyleSheet("padding: 5px")
         
         self.result_label.setVisible(False)
         
@@ -210,15 +211,20 @@ class Ui_DialWindow(object):
         self.h_buttons_lay.addWidget(self.login_button)
 
     def get_balance(self):
-        self.balance_label.setText(_("Your balance is ")+self.phonty.balance())
+        lang, charset = gettext.locale.getdefaultlocale()
+        self.balance_label.setText(_("Your balance is ")+self.phonty.balance(lang[-2:]))
 
     def async_direction_cost(self,number):
         thread = threading.Thread(target = self.get_direction_cost, args = (number,) )
         thread.start()
 
     def get_direction_cost(self,number):
-        price = self.phonty.direction_cost(number,"EN")
-        self.direction_cost_label.setText("%s - %s: %s %s" % (price["country"], price["provider"], price["amount"], _("per minute")))
+        lang, charset = gettext.locale.getdefaultlocale()
+        price = self.phonty.direction_cost(number,lang[-2:])
+        try:
+            self.direction_cost_label.setText("%s - %s: %s %s" % (price["country"], price["provider"], price["amount"], _("per minute")))
+        except:
+            pass
 
     def retranslateUi(self, DialWindow):
         DialWindow.setWindowTitle(QtGui.QApplication.translate("DialWindow", "Phonty", None, QtGui.QApplication.UnicodeUTF8))
