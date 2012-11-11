@@ -43,6 +43,16 @@ class Phonty():
             response = '0.0'
         return response
 
+    def version(self):
+        url = self.url + "version/"
+        request = urllib2.Request(url)
+        try:
+            response = json.loads(self.send(request))["version"]
+        except KeyError,e:
+            response = '0.0.0'
+        return response
+
+
     def direction_cost(self,phone,locale):
         url = self.url + "directioncost/"
         data = urllib.urlencode({'phone':str(phone),'locale': locale})

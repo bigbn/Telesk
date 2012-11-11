@@ -34,7 +34,7 @@ class Ui_DialWindow(object):
         DialWindow.resize(350, 70)
         self.setMaximumWidth(350)
         self.setMaximumHeight(70)
-        self.setWindowIcon(QtGui.QIcon('images/phonty_mini.png'))
+        self.setWindowIcon(QtGui.QIcon(":/icon.png"))
         self.baseLayout = QtGui.QVBoxLayout(DialWindow)
         self.top_spacer = QtGui.QSpacerItem(0,
                                         0,

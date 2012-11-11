@@ -52,6 +52,7 @@ elif platform.machine() == "darwin":
 class Dialer(formClass, BaseClass):
     def __init__(self,  parent=None):
         self.uri = ""
+        self.url = "https://phonty.com/#register"
         self.callswidgets = []
         self.contactswidgets = []
         self.config = ConfigParser.RawConfigParser()
@@ -123,14 +124,29 @@ class Dialer(formClass, BaseClass):
         self.aboutAction = QtGui.QAction(QtGui.QIcon(":/about.png"), _("About"), self)
         self.menu.addAction(self.aboutAction)
 
+        self.updateAction = QtGui.QAction(QtGui.QIcon(":/update.png"), _("Check for updates"), self)
+        self.menu.addAction(self.updateAction)
+
         self.menu.addSeparator()
-        self.quitAction = QtGui.QAction(QtGui.QIcon(":/shutdown.png"), _("Quit"), self)
+        self.quitAction = QtGui.QAction(QtGui.QIcon(":/hangup.png"), _("Quit"), self)
         self.menu.addAction(self.quitAction)
         self.tray.setContextMenu(self.menu)
         self.tray.show()
 
+    def check_for_updates(self):
+        ver_file = open(os.path.dirname(os.path.abspath(sys.argv[0]))+'/version', 'r')
+        self.version = ver_file.readline()
+        ver_file.close()
+        version = self.phonty.version() 
+        if version != self.version:
+            QtGui.QMessageBox.about(self,
+                                    _("New version available"),
+                                    '<span>%s %s</span> <br/> <a href="%s">%s</a>' 
+                                    % (_("Available version"),version,_("https://phonty.com/apps/"),_("Click here to download")))
+        else:
+            QtGui.QMessageBox.about(self, _("No updates available"),_("You have the latest version"))
+    
     def connectSignals(self):
-
         sc = QtGui.QAction("Show contacts",self)
         sc.setShortcut(QtGui.QKeySequence("Alt+Up"))
         self.addAction(sc)
@@ -144,6 +160,7 @@ class Dialer(formClass, BaseClass):
         self.connect(self, QtCore.SIGNAL('rejected()'), self.onQuit)
         
         self.connect(self.showAction, QtCore.SIGNAL("triggered()"), self.showHide)
+        self.connect(self.updateAction, QtCore.SIGNAL("triggered()"), self.check_for_updates)
 
         self.connect(self.aboutAction, QtCore.SIGNAL("triggered()"), self.showAbout)
         self.connect(self.dialButton, QtCore.SIGNAL("clicked()"), self.makeCall)
@@ -154,15 +171,15 @@ class Dialer(formClass, BaseClass):
         #login
         self.connect(self.login_button, QtCore.SIGNAL("clicked()"), self.start_autorization)
         
-        self.connect(self.register_button, QtCore.SIGNAL("clicked()"), self.open_registration)
+        self.connect(self.register_button, QtCore.SIGNAL("clicked()"), self.open_url)
 
         self.connect(self, QtCore.SIGNAL("auth_ok()"), self.finish_autoristion)
         self.connect( self, QtCore.SIGNAL("auth_wrong(QString)"), self.login_again)
         self.connect( self, QtCore.SIGNAL("autorized()"), self.load_controller_async)
         self.connect( self, QtCore.SIGNAL("controller_loaded()"), self.controller_loaded_success)
 
-    def open_registration(self):
-        webbrowser.open(_('https://phonty.com/#register'))
+    def open_url(self):
+        webbrowser.open(self.url)
         
     def login_again(self):
         self.loader.setVisible(False)
@@ -179,7 +196,6 @@ class Dialer(formClass, BaseClass):
 
     def process_autorization(self, number, password):
         if self.phonty.login(number, password):
-
             if not self.config.has_section("sip"):
                 self.config.add_section("sip")
             if not self.config.has_section("main"):

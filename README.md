@@ -1,7 +1,7 @@
-Telesk
+Phonty
 ======
 
-QT and PJSIP based minimalistic SIP Client
+Application for international VOIP service Phonty
 
 ![Screenshot](https://github.com/bigbn/Telesk/raw/master/screenshot.png)
 
@@ -14,7 +14,7 @@ https://github.com/downloads/bigbn/Telesk/telesk_setup_0.2.0.exe - Windows(x86) 
 
 Requirements:
 -------------------
-You need PyQt4 and python2 installed to run Telesk.
+You need PyQt4 and python2 installed to run Phonty.
 
 Supported platforms:
 -------------------
@@ -23,7 +23,3 @@ Currently supported only i686 and x86_64 systems. Also available x86 build wor W
 Language support:
 -------------------
 Currently only English, Russian and Ukrainian languages available.
-
-Contribute:
--------------------
-The team is looking for users having the necessary knowledge to translate, finding and fixing bugs, build packages for other popular distributions, if you're interested please join.

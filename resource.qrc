@@ -1,17 +1,14 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/button_ok.png</file>
-        <file>images/button_cancel.png</file>
-        <file alias="stop.png">images/stop.png</file>
-        <file alias="shutdown.png">images/shutdown.png</file>
-        <file alias="settings.png">images/settings.png</file>
-        <file alias="hangup.png">images/hangup.png</file>
-        <file alias="about.png">images/help-about.png</file>
         <file alias="inactive.png">images/sym_presence_offline.png</file>
         <file alias="error.png">images/sym_presence_away.png</file>
         <file alias="connected.png">images/sym_presence_available.png</file>
-        <file alias="call.png">images/call_.png</file>
         <file alias="loader.gif">images/loader.gif</file>
         <file alias="phonty.png">images/phonty.png</file>
+        <file alias="about.png">images/ic_menu_info.png</file>
+        <file alias="call.png">images/ic_menu_name.png</file>
+        <file alias="hangup.png">images/ic_menu_reject.png</file>
+        <file alias="update.png">images/ic_menu_refresh.png</file>
+        <file alias="icon.png">images/Logo256.png</file>
     </qresource>
 </RCC>
