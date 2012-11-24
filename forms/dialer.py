@@ -360,7 +360,8 @@ class Dialer(formClass, BaseClass):
     def onStateChange(self, uri, state, code, reason):
         debug("Call state: %s %s %s" % (uri, state, code))
         self.uri = uri
-        self.callerIDLabel.setText(self.uri)
+        number = self.uri.split("@")[0][4:]
+        self.callerIDLabel.setText(number)
         if state == "CALLING" or state == "CONNECTING":
             self.show_error(_("Calling..."))
             self.dialButton.hide()
@@ -368,7 +369,7 @@ class Dialer(formClass, BaseClass):
 
         if state == "CONFIRMED":
             self.seconds = 0
-            self.callerIDLabel.setText(self.uri)
+            self.callerIDLabel.setText(number)
             self.timerLabel.setText(u"0:00")
             self.setWindowTitle(_("Call in process"))
             self.startTimer()

@@ -1,13 +1,8 @@
 PHONTY:
     API:
-        make async http requests
-        make https auth
-        load balance
-        load direction info
         load contacts
         load rates
     INTERFACE:
         make unchangable white theme
         make phonty branding
-    SETTINGS:
-        leave only username and password settings
+
