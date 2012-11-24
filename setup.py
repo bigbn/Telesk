@@ -25,11 +25,11 @@ elif method == "cxfreeze":
     from cx_Freeze import setup, Executable, Freezer
     exe = Executable(
         script="main.py",
-        targetName="telesk.exe"
+        targetName="phonty.exe"
     )
     freezer = Freezer([exe],
         base = "Win32GUI",
-        icon = "images\\telesk_default.ico",
+        icon = "images\\Logo256.ico",
         #compress = True,
         path = None,
         createLibraryZip = False,
@@ -42,8 +42,8 @@ elif method == "cxfreeze":
     )
     freezer.Freeze()
     """setup(
-        name = "Telesk",
-        version = "0.2",
-        description = "Telesk Softphone by SKAT LTD",
+        name = "Phonty",
+        version = "0.4",
+        description = "Phonty client by Phontycom LTD",
         executables = [exe]
     )"""

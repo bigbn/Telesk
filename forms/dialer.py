@@ -165,6 +165,9 @@ class Dialer(formClass, BaseClass):
         self.connect(self.aboutAction, QtCore.SIGNAL("triggered()"), self.showAbout)
         self.connect(self.dialButton, QtCore.SIGNAL("clicked()"), self.makeCall)
         self.connect(self.numberEdit, QtCore.SIGNAL("returnPressed()"), self.makeCall)
+        self.connect(self.login_edit, QtCore.SIGNAL("returnPressed()"), self.start_autorization)
+        self.connect(self.password_edit, QtCore.SIGNAL("returnPressed()"), self.start_autorization)
+
         self.connect(self.hangupButton, QtCore.SIGNAL("clicked()"), self.hangup)
         self.connect(self.answerButton, QtCore.SIGNAL("clicked()"), self.answer)
         self.connect(self.rejectButton, QtCore.SIGNAL("clicked()"), self.reject_call)
@@ -330,8 +333,6 @@ class Dialer(formClass, BaseClass):
     def showHide(self):
         state = not self.isVisible()
         self.setVisible(state)
-        if not self.contactsForm.is_hidden:
-            self.contactsForm.setVisible(state)
 
     def onTrayClick(self, reason):
         if reason == QtGui.QSystemTrayIcon.Trigger:
