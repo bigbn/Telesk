@@ -63,6 +63,73 @@ class Phonty():
             response = '0.0'
         return response
 
+    def contacts(self):
+        url = self.url + "contacts_dict/"
+        request = urllib2.Request(url)
+        try:
+            response = json.loads(self.send(request))
+        except KeyError,e:
+            response = []
+        return response
+
+    def contact_delete(self, id):
+        """
+        Removing the contact from phonty base
+        @id() - Contact id
+        :rtype : bool
+        """
+        url = self.url + "contact_delete/"
+        data = urllib.urlencode({'id': id})
+        request = urllib2.Request(url, data)
+        try:
+            response = json.loads(self.send(request))
+        except KeyError,e:
+            response = {'status': "FAIL"}
+
+        if response['status'] == "OK":
+            return True
+        else:
+            return False
+
+    def contact_add(self, name,phone):
+        """
+        Adding the contact from phonty base
+        :rtype : bool
+        """
+        url = self.url + "contact_add/"
+        data = urllib.urlencode({'name': unicode(name).encode('utf-8'), 'phone': unicode(phone).encode('utf-8')})
+        request = urllib2.Request(url, data)
+        try:
+            response = json.loads(self.send(request))
+        except KeyError,e:
+            response = {'status': "FAIL"}
+        try:
+            self.result = int(response['status'])
+            return True
+        except ValueError:
+            return False
+
+    def contact_edit(self,id,name,phone):
+        """
+        Removing the contact from phonty base
+        @id() - Contact id
+        :rtype : bool
+        """
+        url = self.url + "contact_edit/"
+        print "%s %s %s" % (id,name,phone)
+        data = urllib.urlencode({'id': unicode(id).encode('utf-8'), 'name': unicode(name).encode('utf-8'), 'phone': unicode(phone).encode('utf-8')})
+        request = urllib2.Request(url, data)
+        try:
+            response = json.loads(self.send(request))
+        except KeyError,e:
+            response = {'status': "FAIL"}
+
+        if response['status'] == "OK":
+            return True
+        else:
+            return False
+
+
     def send(self,request):
         response = None
         try:

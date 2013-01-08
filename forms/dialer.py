@@ -38,7 +38,7 @@ from database.contacts import ContactsAdapter
 import threading
 import platform
 import webbrowser
-#import py_pjsua
+
 
 if platform.machine() == "i686":
     import pjsua.i686.pjsua as pj
@@ -54,7 +54,7 @@ class Dialer(formClass, BaseClass):
         self.uri = ""
         self.url = "https://phonty.com/#register"
         self.callswidgets = []
-        self.contactswidgets = []
+        self.contacts_widgets = []
         self.config = ConfigParser.RawConfigParser()
         self.config.readfp(getConfig())
         super(Dialer, self).__init__(parent)
@@ -95,7 +95,6 @@ class Dialer(formClass, BaseClass):
             self.login = self.config.get("sip", "login")
             self.login_edit.setText(self.login)
             self.password = self.config.get("sip", "password")
-            debug(self.config.get("sip", "store"))
             if  self.config.get("sip", "store") == "True":
                 self.password_edit.setText(self.password)
                 self.remember_password_check.setCheckState(QtCore.Qt.Checked)
@@ -244,18 +243,27 @@ class Dialer(formClass, BaseClass):
     #    thread.start()
 
     def load_controller_async(self):
+        from PyQt4.QtCore import Qt
+        from PyQt4.QtGui import QApplication, QCursor
+
+        QApplication.setOverrideCursor(QCursor(QtCore.Qt.WaitCursor))
+        # do lengthy process
         self.controller = Controller(self)
+        QApplication.restoreOverrideCursor()
         self.emit( QtCore.SIGNAL('controller_loaded()'))
-        
+
+    # Открытие главного окна происходит здесь
     def controller_loaded_success(self):
         self.login_label.hide()
-        self.resize(350, 70)
+        self.resize(350, 970)
         self.top_spacer.changeSize(40,50)
         self.loader_spacer.changeSize(0,0)
+        self.load_contacts()
 
     def showContacts(self):
-        self.fillHistoryList()
-        self.fillContactsList()
+        #self.fillHistoryList()
+        #self.fillContactsList()
+        pass
 
     def clearHistoryList(self):
         print len(self.callswidgets)
@@ -348,6 +356,10 @@ class Dialer(formClass, BaseClass):
         if number.strip() != "":
             self.controller.make_call(number)
 
+    def make_call(self,phone):
+        self.numberEdit.setText(phone)
+        self.makeCall()
+
     def hangup(self):
         self.controller.hangup_call()
         self.numberEdit.show()
@@ -437,6 +449,7 @@ class Dialer(formClass, BaseClass):
         self.hangupButton.hide()
         self.direction_cost_label.show()
         self.balance_label.show()
+        self.tabs.show()
         self.update()
 
     def show_call(self):
@@ -470,6 +483,17 @@ class Dialer(formClass, BaseClass):
         self.callerIDLabel.setText(unicode(error))
         self.update()
 
+    def load_contacts(self):
+        self.contacts = self.phonty.contacts()
+
+        for contact in self.contacts:
+            widget = Contact(contact, self.phonty, parent=self)
+            widget.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+            self.contacts_widgets.append(widget)
+            self.contact_list_layout.addWidget(widget)
+            widget.clicked.connect(self.historycall)
+            widget.makeCall.connect(self.make_call)
+
     def hide_all(self):
         self.direction_cost_label.hide()
         self.balance_label.hide()
@@ -480,3 +504,4 @@ class Dialer(formClass, BaseClass):
         self.hangupButton.hide()
         self.answerButton.hide()
         self.rejectButton.hide()
+        self.tabs.hide()

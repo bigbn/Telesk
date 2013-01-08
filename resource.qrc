@@ -10,5 +10,8 @@
         <file alias="hangup.png">images/ic_menu_reject.png</file>
         <file alias="update.png">images/ic_menu_refresh.png</file>
         <file alias="icon.png">images/Logo256.png</file>
+        <file alias="add.png">images/add.png</file>
+        <file alias="call_mini.png">images/book_call.png</file>
+        <file alias="edit_mini.png">images/book_edit.png</file>
     </qresource>
 </RCC>

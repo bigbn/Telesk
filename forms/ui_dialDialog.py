@@ -31,9 +31,9 @@ class Ui_DialWindow(object):
         self.phonty = Phonty()
         #interface
         DialWindow.setObjectName(_fromUtf8("DialWindow"))
-        DialWindow.resize(350, 70)
+        DialWindow.resize(350, 270)
         self.setMaximumWidth(350)
-        self.setMaximumHeight(70)
+        self.setMaximumHeight(670)
         self.setWindowIcon(QtGui.QIcon(":/icon.png"))
         self.baseLayout = QtGui.QVBoxLayout(DialWindow)
         self.top_spacer = QtGui.QSpacerItem(0,
@@ -210,9 +210,37 @@ class Ui_DialWindow(object):
         self.login_button.setText(_("Sign In"))
         self.h_buttons_lay.addWidget(self.login_button)
 
+        self.tabs = QtGui.QTabWidget(self)
+
+        # Contacts
+        self.contacts_tab = QtGui.QWidget()
+        self.contacts_tab.setObjectName(_fromUtf8("Contacs"))
+
+        # History
+        self.history_tab = QtGui.QWidget()
+        self.history_tab.setObjectName(_fromUtf8("History"))
+
+        self.scroll_area = QtGui.QScrollArea(self.contacts_tab)
+        self.scroll_area.setWidgetResizable(True)
+        self.scroll_area.setEnabled(True)
+        #self.scroll_area.setMaximumSize(400, 700)
+
+        self.tabs.addTab(self.contacts_tab, _fromUtf8("Contacts"))
+        self.tabs.addTab(self.history_tab, _fromUtf8("History"))
+
+        self.contact_tab_content = QtGui.QWidget()
+
+        self.scroll_area.setWidget(self.contact_tab_content)
+        self.contact_list_layout = QtGui.QVBoxLayout()
+        self.contact_tab_content.setLayout(self.contact_list_layout)
+
+        self.h_main_lay.addWidget(self.tabs)
+        self.contact_tab_content.setSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
+        self.scroll_area.setSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
+
     def get_balance(self):
         lang, charset = gettext.locale.getdefaultlocale()
-        self.balance_label.setText(_("Your balance is ")+self.phonty.balance(lang[-2:]))
+        self.balance_label.setText(_("Your balance is ") + self.phonty.balance(lang[-2:]))
 
     def async_direction_cost(self,number):
         thread = threading.Thread(target = self.get_direction_cost, args = (number,) )
