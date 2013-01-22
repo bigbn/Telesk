@@ -6,12 +6,13 @@ except AttributeError:
     _fromUtf8 = lambda s: s
 from contact import ContactEditor
 
-class Contact(QtGui.QWidget):
+class Contact(QtGui.QFrame):
   clicked = QtCore.pyqtSignal(['QString'])
   makeCall = QtCore.pyqtSignal(['QString'])
 
   def __init__(self, contact, phonty, parent = None):
      QtGui.QWidget.__init__(self, parent)
+
      self.setSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
      self.phonty = phonty
      self.id = contact["id"]
@@ -35,12 +36,17 @@ class Contact(QtGui.QWidget):
      self.callButton.clicked.connect(self.make_call)
 
      self.hLayout = QtGui.QHBoxLayout(self)
-     self.hLayout.setSpacing(0)
+     self.hLayout.setSpacing(2)
+     self.hLayout.setMargin(0)
+
      self.vLayout = QtGui.QVBoxLayout()
      self.vLayout.setSpacing(0)
+     self.vLayout.setMargin(0)
+
      self.vLayout2 = QtGui.QVBoxLayout()
      self.vLayout2.setAlignment(QtCore.Qt.AlignRight)
      self.vLayout2.setSpacing(0)
+     self.vLayout2.setMargin(0)
 
      self.vLayout.addWidget(self.nameLabel)
      self.vLayout.addWidget(self.phoneLabel)

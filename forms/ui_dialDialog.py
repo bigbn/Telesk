@@ -215,28 +215,25 @@ class Ui_DialWindow(object):
         # Contacts
         self.contacts_tab = QtGui.QWidget()
         self.contacts_tab.setObjectName(_fromUtf8("Contacs"))
+        self.contacts_layout = QtGui.QVBoxLayout()
+        scrollwidget = QtGui.QWidget()
+        scrollwidget.setLayout(self.contacts_layout)
+        scroll = QtGui.QScrollArea()
+        scroll.setWidgetResizable(True)  # Set to make the inner widget resize with scroll area
+        scroll.setWidget(scrollwidget)
+        layout = QtGui.QHBoxLayout()
+        layout.addWidget(scroll)
+        layout.setMargin(0)
+        self.contacts_tab.setLayout(layout)
+        self.h_main_lay.addWidget(self.tabs)
 
         # History
         self.history_tab = QtGui.QWidget()
         self.history_tab.setObjectName(_fromUtf8("History"))
 
-        self.scroll_area = QtGui.QScrollArea(self.contacts_tab)
-        self.scroll_area.setWidgetResizable(True)
-        self.scroll_area.setEnabled(True)
-        #self.scroll_area.setMaximumSize(400, 700)
-
         self.tabs.addTab(self.contacts_tab, _fromUtf8("Contacts"))
-        self.tabs.addTab(self.history_tab, _fromUtf8("History"))
+        #self.tabs.addTab(self.history_tab, _fromUtf8("History"))
 
-        self.contact_tab_content = QtGui.QWidget()
-
-        self.scroll_area.setWidget(self.contact_tab_content)
-        self.contact_list_layout = QtGui.QVBoxLayout()
-        self.contact_tab_content.setLayout(self.contact_list_layout)
-
-        self.h_main_lay.addWidget(self.tabs)
-        self.contact_tab_content.setSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
-        self.scroll_area.setSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
 
     def get_balance(self):
         lang, charset = gettext.locale.getdefaultlocale()

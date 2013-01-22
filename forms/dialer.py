@@ -71,7 +71,9 @@ class Dialer(formClass, BaseClass):
                               QMessageBox {background: white }
                               QLabel {color: rgb(0,0,0);}
                               QLineEdit {color: rgb(30,30,30); background-color: rgb(255,255,255); border-style: inset; border-width: 1px;
-                                         border-color: rgb(180,180,180); }""")
+                                         border-color: rgb(180,180,180); }
+                              Contact {border: 1px solid #AAA; border-radius: 2px; padding: 2px; background: #FFF}
+                              Contact:hover{border: 1px solid #AAA; border-radius: 2px; padding: 2px; background: #CCC; }""")
 
         self.numberEdit.button.setStyleSheet("background: transparent; border: none; margin-right: 5px")
         self.notify = NotifyManager()
@@ -490,7 +492,7 @@ class Dialer(formClass, BaseClass):
             widget = Contact(contact, self.phonty, parent=self)
             widget.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
             self.contacts_widgets.append(widget)
-            self.contact_list_layout.addWidget(widget)
+            self.contacts_layout.addWidget(widget)
             widget.clicked.connect(self.historycall)
             widget.makeCall.connect(self.make_call)
 
