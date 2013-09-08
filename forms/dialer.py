@@ -19,7 +19,6 @@
 from PyQt4 import QtCore, QtGui
 BaseClass = QtGui.QDialog
 from ui_dialDialog import Ui_DialWindow as formClass
-from forms.customWidgets import ClearLineEdit
 import sys
 from debug import debug
 import os
@@ -27,10 +26,8 @@ from StringIO import StringIO
 from settings_file import getConfig, saveSettings
 from forms.settings import SettingsForm
 import ConfigParser
-import resource_rc
 from controller import Controller
 from notify import NotifyManager
-from contacts import ContactsForm
 from historyitem import Call
 from contactsitem import Contact
 from database.history import HistoryAdapter

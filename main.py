@@ -23,11 +23,11 @@ import sys
 import os
 from PyQt4 import QtGui
 from debug import debug
-#from forms.login import LoginForm
-
-VERSION = "0.1.0"
-
 from forms.dialer import Dialer
+
+VERSION = "0.2.0"
+
+
 def main():
     if sys.platform.startswith("win"):
         gettext_windows.setup_env()
@@ -41,10 +41,8 @@ def main():
     
     app = QtGui.QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
-    d = Dialer()
-    d.show()
-    #w = LoginForm()
-    #w.show()
+    dialer = Dialer()
+    dialer.show()
     rc = app.exec_()
     sys.exit(rc)
 
